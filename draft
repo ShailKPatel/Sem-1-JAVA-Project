@@ -65,29 +65,61 @@ class sem1 {
                                 int d3 = sc.nextInt();
                                 int mult3 = Math.abs(a3 * d3);
 
-                                int root = 0;
+                                int root3 = 0;
                                 System.out.println();
                                 System.out.println("---------------------------------------------");
 
                                 for (int p = 0; p <= mult3; p++) {
                                     if ((a3 * Math.pow(-p, 3)) + (b3 * Math.pow(-p, 2))
-                                            + (c3 * Math.pow(-p, 1)) + (d3 * Math.pow(-p, 0)) == 0) {
+                                            + c3 * (-p) + d3 == 0) {
                                         System.out.println("x = -" + p);
-                                        root++;
+                                        root3++;
                                     }
                                     if ((a3 * Math.pow(p, 3)) + (b3 * Math.pow(p, 2))
-                                            + (c3 * Math.pow(p, 1)) + (d3 * Math.pow(p, 0)) == 0) {
+                                            + (c3 * Math.pow(p, 1)) + d3 == 0) {
                                         System.out.println("x = " + p);
-                                        root++;
+                                        root3++;
                                     }
                                 }
-                                if (root == 0) {
+                                if (root3 == 0) {
                                     System.out.println("No real roots");
                                 }
 
                                 break;
 
                             case 3:
+                                System.out.println("Equation in form of a*x^4 + b*x^3 + c*x^2 + d*x + e");
+                                System.out.print("a = ");
+                                int a4 = sc.nextInt();
+                                System.out.print("b = ");
+                                int b4 = sc.nextInt();
+                                System.out.print("c = ");
+                                int c4 = sc.nextInt();
+                                System.out.print("d = ");
+                                int d4 = sc.nextInt();
+                                System.out.print("e = ");
+                                int e4 = sc.nextInt();
+                                int mult4 = Math.abs(a4 * e4);
+
+                                int root4 = 0;
+                                System.out.println();
+                                System.out.println("---------------------------------------------");
+
+                                for (int p = 0; p <= mult4; p++) {
+                                    if ((a4 * Math.pow(-p, 4)) + (b4 * Math.pow(-p, 3))
+                                            + (c4 * Math.pow(-p, 2)) + (d4 * Math.pow(-p, 1) + e4) == 0) {
+                                        System.out.println("x = -" + p);
+                                        root4++;
+                                    }
+                                    if ((a4 * Math.pow(p, 4)) + (b4 * Math.pow(p, 3))
+                                            + (c4 * Math.pow(p, 2)) + (d4 * Math.pow(p, 1) + e4) == 0) {
+                                        System.out.println("x = " + p);
+                                        root4++;
+                                    }
+                                }
+                                if (root4 == 0) {
+                                    System.out.println("No real roots");
+                                }
 
                                 break;
 
