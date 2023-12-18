@@ -1,172 +1,206 @@
-import java.util.*;
-import java.lang.*;
+import java.util.Scanner;
 
-class sem1 {
+class Dish {
+    Scanner sc = new Scanner(System.in);
+    int number;
+    String name;
+    double price;
+    String description;
+    String tag;
+
+    public void dishIn() {
+        System.out.print("Enter the number of dishes: ");
+        int numberOfDishes = sc.nextInt();
+
+        Dish[][] dishes = new Dish[numberOfDishes][5]; // 2D array to store dishes here Dish[][] is a class like int[][]
+    }
+
+    // Constructor declaration
+    public Dish(int number, String name, double price, String description, String tag) {
+        this.number = number;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.tag = tag;
+    }
+}
+
+class User {
+    Scanner sc = new Scanner(System.in);
+    static int balance = 5000;
+
+    public void userMenu() {
+        int userChoice = 0;
+        while (userChoice != 4) {
+            System.out.println("Your next Action : ");
+            System.out.println("  1. View Available Restaurants");
+            System.out.println("  2. Balance");
+            System.out.println("  3. Previous Order");
+            System.out.println("  4. Exit");
+            System.out.print("Your choice : ");
+
+            userChoice = sc.nextInt();
+            switch (userChoice) {
+                case 1:
+                    // Code for viewing available restaurants
+                    break;
+
+                case 2:
+                    // Code for checking balance
+                    break;
+
+                case 3:
+                    // Code for viewing previous orders
+                    break;
+
+                case 4:
+                    System.out.println("Exiting User Section");
+                    break;
+
+                default:
+                    System.out.println("Pick from 1 to 4");
+                    break;
+            }
+        }
+    }
+}
+
+class Admin {
+    Scanner sc = new Scanner(System.in);
+    String ADMIN_PASSWORD = "LJIET";
+    int MAX_ATTEMPTS = 3;
+
+    public void adminMenu() {
+        int adminChoice = 0;
+        int attempts = 0;
+
+        do {
+            System.out.print("Enter Admin Password : ");
+            String enteredPassword = sc.next();
+
+            if (enteredPassword.equals(ADMIN_PASSWORD)) {
+                while (adminChoice != 5) {
+                    System.out.println("Your next Action : ");
+                    System.out.println("  1. Add Restaurants");
+                    System.out.println("  2. Add Dishes");
+                    System.out.println("  3. Remove Restaurants");
+                    System.out.println("  4. Remove Dishes");
+                    System.out.println("  5. View all dishes");
+                    System.out.println("  6. Exit");
+                    System.out.print("Your choice : ");
+
+                    adminChoice = sc.nextInt();
+
+                    switch (adminChoice) {
+                        case 1:
+                            // Adding restaurants
+
+                            break;
+
+                        case 2:
+                            // Adding dishes
+
+                            System.out.print("Enter the number of dishes: ");
+                            int numberOfDishes = sc.nextInt();
+
+                            Dish[][] dishes = new Dish[numberOfDishes][5]; // 2D array to store dishes here Dish[][] is
+                                                                           // a class like int[][]
+
+                            // Input dishes from the user
+                            for (int i = 0; i < numberOfDishes; i++) {
+                                System.out.println("Enter details for Dish " + (i + 1) + ":");
+                                System.out.print("Number: ");
+                                int number = sc.nextInt();
+
+                                System.out.print("Name: ");
+                                String name = sc.nextLine();
+                                System.out.print("Price: ");
+                                double price = sc.nextDouble();
+                                sc.nextLine(); // Consume the newline character
+                                System.out.print("Description: ");
+                                String description = sc.nextLine();
+                                System.out.print("Tag (Starter/Main Course/Snack/Dessert): ");
+                                String tag = sc.nextLine();
+
+                                dishes[i][0] = new Dish(number, name, price, description, tag);
+                            }
+                            break;
+
+                        case 3:
+                            // Code for removing restaurants
+                            break;
+
+                        case 4:
+                            // Code for removing dishes
+                            for (int i = 0; i < dishes.length; i++) {
+                                if (dishes[i][0] != null) {
+                                    Dish dish = dishes[i][0];
+                                    System.out.println("Dish Number: " + dish.number);
+                                    System.out.println("Name: " + dish.name);
+                                    System.out.println("Price: $" + dish.price);
+                                    System.out.println("Description: " + dish.description);
+                                    System.out.println("Tag: " + dish.tag);
+                                    System.out.println();
+                                }
+                            }
+                            break;
+
+                        case 5:
+                            System.out.println("Exiting Admin Section");
+                            break;
+
+                        default:
+                            System.out.println("Invalid Admin Choice");
+                            break;
+                    }
+                }
+                break; // Break out of the do-while loop if the password is correct
+            } else {
+                attempts++;
+                System.out.println("Incorrect password \nAttempts left : " + (MAX_ATTEMPTS - attempts));
+            }
+        } while (attempts < MAX_ATTEMPTS);
+
+        if (attempts >= MAX_ATTEMPTS) {
+            System.out.println("Too many incorrect attempts\nExiting Admin Section.");
+        }
+    }
+}
+
+class FirstClass {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        User user = new User();
+        Admin admin = new Admin();
         int choice = 0;
-        while (choice != 6) {
 
-            System.out.println("---------------------------------------------");
-            System.out.println("                MAIN MENU");
-            System.out.println("---------------------------------------------");
-            System.out.println("Press 1. to find solution to a polynomial equation.");
-            System.out.println("Press 2. to plot graphs.");
-            System.out.println("Press 3. to ");
-            System.out.println("Press 4. to ");
-            System.out.println("Press 5. to ");
-            System.out.println("Press 6. to Exit.");
+        while (choice != 3) {
+            System.out.println("Login as: ");
+            System.out.println("  1. User");
+            System.out.println("  2. Admin");
+            System.out.println("  3. Close the program");
             System.out.print("Your choice : ");
 
             choice = sc.nextInt();
             switch (choice) {
                 case 1:
-
-                    int polychoice = 0;
-                    while (polychoice != 6) {
-
-                        System.out.println("---------------------------------------------");
-                        System.out.println("                POLYNOMIAL MENU");
-                        System.out.println("---------------------------------------------");
-                        System.out.println("Press 1. Quadratic equation.");
-                        System.out.println("Press 2. cubic eqn.");
-                        System.out.println("Press 3. quatic eqn.");
-                        System.out.println("Press 4. power 5 ");
-                        System.out.println("Press 5. power 6 ");
-                        System.out.println("Press 6. to Exit.");
-                        System.out.print("Your choice : ");
-                        polychoice = sc.nextInt();
-                        switch (polychoice) {
-                            case 1:
-                                System.out.println("Equation in form of a*x^2 + b*x + c");
-                                System.out.print("a = ");
-                                int a2 = sc.nextInt();
-                                System.out.print("b = ");
-                                int b2 = sc.nextInt();
-                                System.out.print("c = ");
-                                int c2 = sc.nextInt();
-                                double b2sq = Math.pow(b2, 2);
-                                System.out
-                                        .println("x1  = " + (b2 * (-1) + Math.pow(b2sq - 4 * a2 * c2, 0.5)) / (2 * a2));
-                                System.out
-                                        .println("x2  = " + (b2 * (-1) - Math.pow(b2sq - 4 * a2 * c2, 0.5)) / (2 * a2));
-
-                                break;
-
-                            case 2:
-                                System.out.println("Equation in form of a*x^3 + b*x^2 + c*x + d");
-                                System.out.print("a = ");
-                                int a3 = sc.nextInt();
-                                System.out.print("b = ");
-                                int b3 = sc.nextInt();
-                                System.out.print("c = ");
-                                int c3 = sc.nextInt();
-                                System.out.print("d = ");
-                                int d3 = sc.nextInt();
-                                int mult3 = Math.abs(a3 * d3);
-
-                                int root3 = 0;
-                                System.out.println();
-                                System.out.println("---------------------------------------------");
-
-                                for (int p = 0; p <= mult3; p++) {
-                                    if ((a3 * Math.pow(-p, 3)) + (b3 * Math.pow(-p, 2))
-                                            + c3 * (-p) + d3 == 0) {
-                                        System.out.println("x = -" + p);
-                                        root3++;
-                                    }
-                                    if ((a3 * Math.pow(p, 3)) + (b3 * Math.pow(p, 2))
-                                            + (c3 * Math.pow(p, 1)) + d3 == 0) {
-                                        System.out.println("x = " + p);
-                                        root3++;
-                                    }
-                                }
-                                if (root3 == 0) {
-                                    System.out.println("No real roots");
-                                }
-
-                                break;
-
-                            case 3:
-                                System.out.println("Equation in form of a*x^4 + b*x^3 + c*x^2 + d*x + e");
-                                System.out.print("a = ");
-                                int a4 = sc.nextInt();
-                                System.out.print("b = ");
-                                int b4 = sc.nextInt();
-                                System.out.print("c = ");
-                                int c4 = sc.nextInt();
-                                System.out.print("d = ");
-                                int d4 = sc.nextInt();
-                                System.out.print("e = ");
-                                int e4 = sc.nextInt();
-                                int mult4 = Math.abs(a4 * e4);
-
-                                int root4 = 0;
-                                System.out.println();
-                                System.out.println("---------------------------------------------");
-
-                                for (int p = 0; p <= mult4; p++) {
-                                    if ((a4 * Math.pow(-p, 4)) + (b4 * Math.pow(-p, 3))
-                                            + (c4 * Math.pow(-p, 2)) + (d4 * Math.pow(-p, 1) + e4) == 0) {
-                                        System.out.println("x = -" + p);
-                                        root4++;
-                                    }
-                                    if ((a4 * Math.pow(p, 4)) + (b4 * Math.pow(p, 3))
-                                            + (c4 * Math.pow(p, 2)) + (d4 * Math.pow(p, 1) + e4) == 0) {
-                                        System.out.println("x = " + p);
-                                        root4++;
-                                    }
-                                }
-                                if (root4 == 0) {
-                                    System.out.println("No real roots");
-                                }
-
-                                break;
-
-                            case 4:
-
-                                break;
-
-                            case 5:
-
-                                break;
-
-                            case 6:
-                                System.out.println("Back to main menu");
-                                break;
-
-                            default:
-                                System.out.println("Pick from 1 to 6");
-                                break;
-
-                        }
-                    }
+                    user.userMenu();
+                    break;
 
                 case 2:
-
+                    admin.adminMenu();
                     break;
 
                 case 3:
-
-                    break;
-
-                case 4:
-
-                    break;
-
-                case 5:
-
-                    break;
-
-                case 6:
-
+                    System.out.println("Exiting");
                     break;
 
                 default:
-                    System.out.println("Pick from 1 to 6");
+                    System.out.println("Pick from 1 to 3");
                     break;
             }
         }
 
+        sc.close(); // Close the scanner to prevent resource leak
     }
 }
