@@ -1,0 +1,277 @@
+//personal project
+import java.util.*;
+import java.lang.*;
+
+class Solution {
+
+    void simpleCalculator(double num1, char c, double num2) {
+        double result = 0; // declaring 0 to avoid intialization eror
+        switch (c) {
+            case '+':
+                result = num1 + num2;
+                System.out.println(result);
+                break;
+            case '-':
+                result = num1 - num2;
+                System.out.println(result);
+                break;
+            case '*':
+                result = num1 * num2;
+                break;
+            case '/':
+                if (num2 != 0) {
+                    result = num1 / num2;
+                    System.out.println(result);
+                } else {
+                    System.out.println("Cannot divide by zero. Please enter a non-zero divisor.");
+                }
+                break;
+            default:
+                System.out.println("Invalid operator. Please enter a valid operator.");
+        }
+
+    }
+
+    void poly(int a, int b, int c) {
+        // quadratic equation (degree = 2)
+        System.out.println("---------------------------------------------");
+
+        double b2sq = Math.pow(b, 2);
+        System.out
+                .println("x1  = " + (b * (-1) + Math.pow(b2sq - 4 * a * c, 0.5)) / (2 * a));
+        System.out
+                .println("x2  = " + (b * (-1) - Math.pow(b2sq - 4 * a * c, 0.5)) / (2 * a));
+        System.out.println("---------------------------------------------");
+    }
+
+    void poly(int a, int b, int c, int d) {
+        // cubic equation (degree = 3)
+        System.out.println("---------------------------------------------");
+
+        int root3 = 0;
+        int mult3 = Math.abs(a * d);
+
+        if ((a * Math.pow(0, 3)) + (b * Math.pow(0, 2)) + (c * Math.pow(0, 1)) + d == 0) {
+            System.out.println("x = " + 0);
+            root3++;
+        }
+
+        for (int p = 1; p <= mult3; p++) {
+            if ((a * Math.pow(-p, 3)) + (b * Math.pow(-p, 2)) + c * (-p) + d == 0) {
+                System.out.println("x = -" + p);
+                root3++;
+            }
+            if ((a * Math.pow(p, 3)) + (b * Math.pow(p, 2)) + (c * Math.pow(p, 1)) + d == 0) {
+                System.out.println("x = " + p);
+                root3++;
+            }
+        }
+        if (root3 == 0) {
+            System.out.println("No real roots");
+        }
+
+        System.out.println("---------------------------------------------");
+    }
+
+    void poly(int a, int b, int c, int d, int e) {
+        // quartic equation (degree = 4)
+        System.out.println("---------------------------------------------");
+
+        int root4 = 0;
+        int mult4 = Math.abs(a * e);
+
+        for (int p = 0; p <= mult4; p++) {
+            if ((a * Math.pow(-p, 4)) + (b * Math.pow(-p, 3))
+                    + (c * Math.pow(-p, 2)) + (d * Math.pow(-p, 1)) + e == 0) {
+                System.out.println("x = -" + p);
+                root4++;
+            }
+            if ((a * Math.pow(p, 4)) + (b * Math.pow(p, 3))
+                    + (c * Math.pow(p, 2)) + (d * Math.pow(p, 1)) + e == 0) {
+                System.out.println("x = " + p);
+                root4++;
+            }
+            System.out.println(root4);
+        }
+        if (root4 == 0) {
+            System.out.println("No real roots");
+        }
+        System.out.println("---------------------------------------------");
+    }
+
+    void poly(int a, int b, int c, int d, int e, int f) {
+        // quintic equation (degree = 5)
+        System.out.println("---------------------------------------------");
+
+        int root5 = 0;
+        int mult5 = Math.abs(a * f);
+
+        for (int q = 0; q <= mult5; q++) {
+            if ((a * Math.pow(-q, 5)) + (b * Math.pow(-q, 4))
+                    + (c * Math.pow(-q, 3)) + (d * Math.pow(-q, 2)) + (e * Math.pow(-q, 1) + f) == 0) {
+                System.out.println("x = -" + q);
+                root5++;
+            }
+            if ((a * Math.pow(q, 5)) + (b * Math.pow(q, 4))
+                    + (c * Math.pow(q, 3)) + (d * Math.pow(q, 2)) + (e * Math.pow(q, 1) + f) == 0) {
+                System.out.println("x = " + q);
+                root5++;
+            }
+        }
+        if (root5 == 0) {
+            System.out.println("No real roots");
+        }
+        System.out.println("---------------------------------------------");
+    }
+
+}
+
+class PolynomialS {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Solution solv = new Solution();
+
+        while (true) {
+            System.out.println("---------------------------------------------");
+            System.out.println("                MAIN MENU");
+            System.out.println("---------------------------------------------");
+            System.out.println("Press 1 to enter a Simple Calculator");
+            System.out.println("Press 2 to enter a quadratic equation (degree = 2)");
+            System.out.println("Press 3 to enter a cubic equation (degree = 3)");
+            System.out.println("Press 4 to enter a quartic equation (degree = 4)");
+            System.out.println("Press 5 to enter a quintic equation (degree = 5)");
+            System.out.println("Press 6 to enter a sextic equation (degree = 6)");
+            System.out.println("Press 7 to enter a septic equation (degree = 7)");
+            System.out.println("Press 8 to enter an octic equation (degree = 8)");
+            System.out.println("Press 9 to enter a nonic equation (degree = 9)");
+            System.out.println("Press 10 to enter a decic equation (degree = 10)");
+
+            System.out.println("Press 0 to exit");
+
+            System.out.print("Your choice: ");
+            int polyChoice = sc.nextInt();
+            System.out.println();
+            System.out.println("---------------------------------------------");
+            System.out.println();
+
+            if (polyChoice == 0) {
+                System.out.println("Exiting the program. Goodbye!");
+                System.out.println();
+                System.out.println("---------------------------------------------");
+                System.exit(0);
+
+                break;
+            }
+
+            switch (polyChoice) {
+
+                case 1:
+                    System.out.print("Enter an equation (num1 operator num2): ");
+                    System.out.print("Enter num1 : ");
+                    double num1 = sc.nextDouble();
+
+                    System.out.print("Enter operator (+, -, *, /) : ");
+                    char operator = sc.next().charAt(0);
+
+                    System.out.print("Enter num2 : ");
+                    double num2 = sc.nextDouble();
+
+                    solv.simpleCalculator(num1, operator, num2);
+
+                    break;
+
+                case 2:
+                    System.out.println("Equation: a * x^2 + b * x + c");
+                    System.out.print("a = ");
+                    int a2 = sc.nextInt();
+                    System.out.print("b = ");
+                    int b2 = sc.nextInt();
+                    System.out.print("c = ");
+                    int c2 = sc.nextInt();
+
+                    solv.poly(a2, b2, c2);
+
+                    break;
+
+                case 3:
+
+                    System.out.println("Equation: a * x^3 + b * x^2 + c * x + d");
+                    System.out.print("a = ");
+                    int a3 = sc.nextInt();
+                    System.out.print("b = ");
+                    int b3 = sc.nextInt();
+                    System.out.print("c = ");
+                    int c3 = sc.nextInt();
+                    System.out.print("d = ");
+                    int d3 = sc.nextInt();
+
+                    solv.poly(a3, b3, c3, d3);
+
+                    break;
+
+                case 4:
+
+                    System.out.println("Equation: a * x^4 + b * x^3 + c * x^2 + d * x + e");
+                    System.out.print("a = ");
+                    int a4 = sc.nextInt();
+                    System.out.print("b = ");
+                    int b4 = sc.nextInt();
+                    System.out.print("c = ");
+                    int c4 = sc.nextInt();
+                    System.out.print("d = ");
+                    int d4 = sc.nextInt();
+                    System.out.print("e = ");
+                    int e4 = sc.nextInt();
+
+                    solv.poly(a4, b4, c4, d4, e4);
+
+                    break;
+
+                case 5:
+
+                    System.out.println("Equation: a * x^5 + b * x^4 + c * x^3 + d * x^2 + e * x + f");
+                    System.out.print("a = ");
+                    int a5 = sc.nextInt();
+                    System.out.print("b = ");
+                    int b5 = sc.nextInt();
+                    System.out.print("c = ");
+                    int c5 = sc.nextInt();
+                    System.out.print("d = ");
+                    int d5 = sc.nextInt();
+                    System.out.print("e = ");
+                    int e5 = sc.nextInt();
+                    System.out.print("f = ");
+                    int f5 = sc.nextInt();
+
+                    solv.poly(a5, b5, c5, d5, e5, f5);
+
+                    break;
+
+                case 6:
+
+                    break;
+
+                case 7:
+
+                    break;
+
+                case 8:
+
+                    break;
+
+                case 9:
+
+                    break;
+
+                case 10:
+
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+            }
+        }
+
+        sc.close();
+    }
+}
