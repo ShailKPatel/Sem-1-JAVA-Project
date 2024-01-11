@@ -1,4 +1,3 @@
-//personal project
 import java.util.*;
 import java.lang.*;
 
@@ -99,29 +98,80 @@ class Solution {
         System.out.println("---------------------------------------------");
     }
 
-    void poly(int a, int b, int c, int d, int e, int f) {
-        // quintic equation (degree = 5)
-        System.out.println("---------------------------------------------");
-
-        int root5 = 0;
-        int mult5 = Math.abs(a * f);
-
-        for (int q = 0; q <= mult5; q++) {
-            if ((a * Math.pow(-q, 5)) + (b * Math.pow(-q, 4))
-                    + (c * Math.pow(-q, 3)) + (d * Math.pow(-q, 2)) + (e * Math.pow(-q, 1) + f) == 0) {
-                System.out.println("x = -" + q);
-                root5++;
-            }
-            if ((a * Math.pow(q, 5)) + (b * Math.pow(q, 4))
-                    + (c * Math.pow(q, 3)) + (d * Math.pow(q, 2)) + (e * Math.pow(q, 1) + f) == 0) {
-                System.out.println("x = " + q);
-                root5++;
-            }
+    void Logarithmic(double value) {
+        if (value > 0) {
+            double result = Math.log(value);
+            System.out.println("Natural logarithm of " + value + " is: " + result);
+        } else {
+            System.out.println("Logarithm is undefined for non-positive values.");
         }
-        if (root5 == 0) {
-            System.out.println("No real roots");
+    }
+
+    void Trigonometric(int trigChoice, double angle) {
+        double result = 0;
+
+        switch (trigChoice) {
+            case 1:
+                result = Math.sin(Math.toRadians(angle));
+                System.out.println(result);
+                break;
+            case 2:
+                result = Math.cos(Math.toRadians(angle));
+                System.out.println(result);
+                break;
+            case 3:
+                result = Math.tan(Math.toRadians(angle));
+                System.out.println(result);
+                break;
+            case 4:
+                result = 1 / Math.sin(Math.toRadians(angle));
+                System.out.println(result);
+                break;
+            case 5:
+                result = 1 / Math.cos(Math.toRadians(angle));
+                System.out.println(result);
+                break;
+            case 6:
+                result = 1 / Math.tan(Math.toRadians(angle));
+                System.out.println(result);
+                break;
+            default:
+                System.out.println("Invalid choice. Please enter a valid trigonometric function.");
         }
-        System.out.println("---------------------------------------------");
+
+    }
+
+    long calculateFactorial(int n) {
+        // using reccursion
+        if (n == 0 || n == 1) {
+            return 1;
+        } else {
+            return n * calculateFactorial(n - 1);
+        }
+    }
+
+    void Factorial(int value) {
+        if (value >= 0) {
+            long result = calculateFactorial(value);
+            System.out.println("Factorial of " + value + " is: " + result);
+        } else {
+            System.out.println("Factorial is undefined for negative integers.");
+        }
+    }
+
+    void APSum(int firstTerm, int commonDifference, int numberOfTerms) {
+        int apSum = (numberOfTerms * (2 * firstTerm + (numberOfTerms - 1) * commonDifference)) / 2;
+        System.out.println("Sum of the Arithmetic Progression is: " + apSum);
+    }
+
+    void GP(double firstTerm, double commonRatio, int numberOfTerms) {
+        if (commonRatio == 1) {
+            // (infinite sum)
+            System.out.println("Sum of the Geometric Progression is infinite.");
+        } else {
+            double gpSum = firstTerm * (Math.pow(commonRatio, numberOfTerms) - 1) / (commonRatio - 1);
+            System.out.println("Sum of the Geometric Progression is: " + gpSum);
+        }
     }
 
 }
@@ -139,12 +189,12 @@ class PolynomialS {
             System.out.println("Press 2 to enter a quadratic equation (degree = 2)");
             System.out.println("Press 3 to enter a cubic equation (degree = 3)");
             System.out.println("Press 4 to enter a quartic equation (degree = 4)");
-            System.out.println("Press 5 to enter a quintic equation (degree = 5)");
-            System.out.println("Press 6 to enter a sextic equation (degree = 6)");
-            System.out.println("Press 7 to enter a septic equation (degree = 7)");
-            System.out.println("Press 8 to enter an octic equation (degree = 8)");
-            System.out.println("Press 9 to enter a nonic equation (degree = 9)");
-            System.out.println("Press 10 to enter a decic equation (degree = 10)");
+            System.out.println("Press 5 for Logarithm");
+            System.out.println("Press 6 for Trigonometric Calculations");
+            System.out.println("Press 7 for Factorial");
+            System.out.println("Press 8 for Power Function");
+            System.out.println("Press 9 for Arithmetic Progression (Sum)");
+            System.out.println("Press 10 for Geometric Progression (Product)");
 
             System.out.println("Press 0 to exit");
 
@@ -229,41 +279,73 @@ class PolynomialS {
 
                 case 5:
 
-                    System.out.println("Equation: a * x^5 + b * x^4 + c * x^3 + d * x^2 + e * x + f");
-                    System.out.print("a = ");
-                    int a5 = sc.nextInt();
-                    System.out.print("b = ");
-                    int b5 = sc.nextInt();
-                    System.out.print("c = ");
-                    int c5 = sc.nextInt();
-                    System.out.print("d = ");
-                    int d5 = sc.nextInt();
-                    System.out.print("e = ");
-                    int e5 = sc.nextInt();
-                    System.out.print("f = ");
-                    int f5 = sc.nextInt();
-
-                    solv.poly(a5, b5, c5, d5, e5, f5);
+                    System.out.print("Enter a value: ");
+                    double inputValue = sc.nextDouble();
+                    solv.Logarithmic(inputValue);
 
                     break;
 
                 case 6:
 
+                    System.out.println("Trigonometric Calculations Menu:");
+                    System.out.println("1. Sine");
+                    System.out.println("2. Cosine");
+                    System.out.println("3. Tangent");
+                    System.out.println("4. Cosecant");
+                    System.out.println("5. Secant");
+                    System.out.println("6. Cotangent");
+
+                    System.out.print("Enter your choice (1-6): ");
+                    int trigChoice = sc.nextInt();
+
+                    System.out.print("Enter the angle in degrees: ");
+                    double angle = sc.nextDouble();
+                    solv.Trigonometric(trigChoice, angle);
                     break;
 
                 case 7:
 
+                    System.out.print("Enter a non-negative integer: ");
+                    int input = sc.nextInt();
+                    solv.Factorial(input);
                     break;
 
                 case 8:
 
+                    System.out.print("Enter the base: ");
+                    double base = sc.nextDouble();
+
+                    System.out.print("Enter the exponent: ");
+                    int exponent = sc.nextInt();
+                    System.out.println(Math.pow(base, exponent));
+
                     break;
 
                 case 9:
+                    System.out.print("Enter the first term (a): ");
+                    int firstTerm = sc.nextInt();
+
+                    System.out.print("Enter the common difference (d): ");
+                    int commonDifference = sc.nextInt();
+
+                    System.out.print("Enter the number of terms (n): ");
+                    int numberOfTerms = sc.nextInt();
+                    solv.APSum(firstTerm, commonDifference, numberOfTerms);
 
                     break;
 
                 case 10:
+
+                    System.out.print("Enter the first term (a): ");
+                    double firstTermGP = sc.nextDouble();
+
+                    System.out.print("Enter the common ratio (r): ");
+                    double commonRatioGP = sc.nextDouble();
+
+                    System.out.print("Enter the number of terms (n): ");
+                    int numberOfTermsGP = sc.nextInt();
+
+                    solv.GP(firstTermGP, commonRatioGP, numberOfTermsGP);
 
                     break;
 
