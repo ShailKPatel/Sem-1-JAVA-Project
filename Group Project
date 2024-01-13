@@ -1,206 +1,417 @@
-import java.util.Scanner;
+import java.util.*;
 
 class Dish {
-    Scanner sc = new Scanner(System.in);
-    int number;
+    Scanner scanner = new Scanner(System.in);
+
     String name;
-    double price;
-    String description;
-    String tag;
+    String category;
+    String cuisine;
+    int price;
+    int timeOfPreparation;
 
-    public void dishIn() {
-        System.out.print("Enter the number of dishes: ");
-        int numberOfDishes = sc.nextInt();
+    static Dish[] allDishes = new Dish[0];
 
-        Dish[][] dishes = new Dish[numberOfDishes][5]; // 2D array to store dishes here Dish[][] is a class like int[][]
+    void addDishToArray(Dish newDish) {
+        Dish[] newArray = new Dish[allDishes.length + 1];
+
+    void dishInput() {
+        System.out.println("Enter the dish name:");
+        this.name = scanner.nextLine();
+
+        dishCategory();
+
+        dishCuisine();
+
+        System.out.println("Enter the price:");
+        this.price = scanner.nextInt();
+
+        System.out.println("Enter the time of preparation (in minutes):");
+        this.timeOfPreparation = scanner.nextInt();
+
     }
 
-    // Constructor declaration
-    public Dish(int number, String name, double price, String description, String tag) {
-        this.number = number;
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.tag = tag;
+    void dishCategory() {
+        System.out.println("Choose category (1-5):\n1. Starter\n2. Snack\n3. Main Meal\n4. Dessert\n5. Miscellaneous");
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                this.category = "Starter";
+                break;
+            case 2:
+                this.category = "Snack";
+                break;
+            case 3:
+                this.category = "Main Meal";
+                break;
+            case 4:
+                this.category = "Dessert";
+                break;
+            case 5:
+                this.category = "Miscellaneous";
+                break;
+            default:
+                System.out.println("Invalid choice. Setting category to Miscellaneous.");
+                this.category = "Miscellaneous";
+        }
+
     }
-}
 
-class User {
-    Scanner sc = new Scanner(System.in);
-    static int balance = 5000;
+    void dishCuisine() {
+        System.out.println(
+                "Choose cuisine:\n1. Indian\n2. Italian\n3. Gujarati\n4. Mexican\n5. South Indian\n6. Continental\n7. Punjabi");
+        int choice = scanner.nextInt();
 
-    public void userMenu() {
-        int userChoice = 0;
-        while (userChoice != 4) {
-            System.out.println("Your next Action : ");
-            System.out.println("  1. View Available Restaurants");
-            System.out.println("  2. Balance");
-            System.out.println("  3. Previous Order");
-            System.out.println("  4. Exit");
-            System.out.print("Your choice : ");
-
-            userChoice = sc.nextInt();
-            switch (userChoice) {
-                case 1:
-                    // Code for viewing available restaurants
-                    break;
-
-                case 2:
-                    // Code for checking balance
-                    break;
-
-                case 3:
-                    // Code for viewing previous orders
-                    break;
-
-                case 4:
-                    System.out.println("Exiting User Section");
-                    break;
-
-                default:
-                    System.out.println("Pick from 1 to 4");
-                    break;
-            }
+        switch (choice) {
+            case 1:
+                this.cuisine = "Indian";
+                break;
+            case 2:
+                this.cuisine = "Italian";
+                break;
+            case 3:
+                this.cuisine = "Gujarati";
+                break;
+            case 4:
+                this.cuisine = "Mexican";
+                break;
+            case 5:
+                this.cuisine = "South Indian";
+                break;
+            case 6:
+                this.cuisine = "Continental";
+                break;
+            case 7:
+                this.cuisine = "Punjabi";
+                break;
+            default:
+                System.out.println("Invalid choice. Setting cuisine to Indian.");
+                this.cuisine = "Indian";
         }
     }
+
+    void dishPrint() {
+        System.out.println("Dish Name: " + this.name);
+        System.out.println("Category: " + this.category);
+        System.out.println("Cuisine: " + this.cuisine);
+        System.out.println("Price: " + this.price);
+        System.out.println("Time of Preparation: " + this.timeOfPreparation + " minutes");
+    }
 }
 
-class Admin {
-    Scanner sc = new Scanner(System.in);
-    String ADMIN_PASSWORD = "LJIET";
-    int MAX_ATTEMPTS = 3;
+class Restaurant {
+    Scanner scanner = new Scanner(System.in);
 
-    public void adminMenu() {
-        int adminChoice = 0;
-        int attempts = 0;
+    String name;
+    String address;
+    String theme;
+    int noOfStars;
+    int noOfReviews;
+    Dish[] dishes;
+
+    void RestaurantInput() {
+        System.out.println("Enter the restaurant name:");
+        this.name = scanner.nextLine();
+
+        System.out.println("Enter the restaurant address:");
+        this.address = scanner.nextLine();
+
+        restaurantTheme();
+
+        System.out.println("Enter the number of stars:");
+        this.noOfStars = scanner.nextInt();
+
+        System.out.println("Enter the number of reviews:");
+        this.noOfReviews = scanner.nextInt();
+
+        System.out.println("Enter the number of dishes:");
+        int numDishes = scanner.nextInt();
+        scanner.nextLine();
+
+    }
+
+    void restaurantTheme() {
+        System.out.println("Choose theme:\n1. Fast Food\n2. Dine In\n3. Food Truck\n4. Cafe\n5. Fine Dining");
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                this.theme = "Fast Food";
+                break;
+            case 2:
+                this.theme = "Dine In";
+                break;
+            case 3:
+                this.theme = "Food Truck";
+                break;
+            case 4:
+                this.theme = "Cafe";
+                break;
+            case 5:
+                this.theme = "Fine Dining";
+                break;
+            default:
+                System.out.println("Invalid choice. Setting theme to Fast Food.");
+                this.theme = "Fast Food";
+        }
+    }
+
+}
+
+class ProductManager {
+    Scanner scanner = new Scanner(System.in);
+
+    void managerMenu() {
+        int choice;
 
         do {
-            System.out.print("Enter Admin Password : ");
-            String enteredPassword = sc.next();
+            System.out.println("Manager Menu:");
+            System.out.println("1. Add Restaurant");
+            System.out.println("2. Add Dishes");
+            System.out.println("3. Delete Restaurant");
+            System.out.println("4. Delete Dishes");
+            System.out.println("5. Exit");
 
-            if (enteredPassword.equals(ADMIN_PASSWORD)) {
-                while (adminChoice != 5) {
-                    System.out.println("Your next Action : ");
-                    System.out.println("  1. Add Restaurants");
-                    System.out.println("  2. Add Dishes");
-                    System.out.println("  3. Remove Restaurants");
-                    System.out.println("  4. Remove Dishes");
-                    System.out.println("  5. View all dishes");
-                    System.out.println("  6. Exit");
-                    System.out.print("Your choice : ");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
 
-                    adminChoice = sc.nextInt();
-
-                    switch (adminChoice) {
-                        case 1:
-                            // Adding restaurants
-
-                            break;
-
-                        case 2:
-                            // Adding dishes
-
-                            System.out.print("Enter the number of dishes: ");
-                            int numberOfDishes = sc.nextInt();
-
-                            Dish[][] dishes = new Dish[numberOfDishes][5]; // 2D array to store dishes here Dish[][] is
-                                                                           // a class like int[][]
-
-                            // Input dishes from the user
-                            for (int i = 0; i < numberOfDishes; i++) {
-                                System.out.println("Enter details for Dish " + (i + 1) + ":");
-                                System.out.print("Number: ");
-                                int number = sc.nextInt();
-
-                                System.out.print("Name: ");
-                                String name = sc.nextLine();
-                                System.out.print("Price: ");
-                                double price = sc.nextDouble();
-                                sc.nextLine(); // Consume the newline character
-                                System.out.print("Description: ");
-                                String description = sc.nextLine();
-                                System.out.print("Tag (Starter/Main Course/Snack/Dessert): ");
-                                String tag = sc.nextLine();
-
-                                dishes[i][0] = new Dish(number, name, price, description, tag);
-                            }
-                            break;
-
-                        case 3:
-                            // Code for removing restaurants
-                            break;
-
-                        case 4:
-                            // Code for removing dishes
-                            for (int i = 0; i < dishes.length; i++) {
-                                if (dishes[i][0] != null) {
-                                    Dish dish = dishes[i][0];
-                                    System.out.println("Dish Number: " + dish.number);
-                                    System.out.println("Name: " + dish.name);
-                                    System.out.println("Price: $" + dish.price);
-                                    System.out.println("Description: " + dish.description);
-                                    System.out.println("Tag: " + dish.tag);
-                                    System.out.println();
-                                }
-                            }
-                            break;
-
-                        case 5:
-                            System.out.println("Exiting Admin Section");
-                            break;
-
-                        default:
-                            System.out.println("Invalid Admin Choice");
-                            break;
-                    }
-                }
-                break; // Break out of the do-while loop if the password is correct
-            } else {
-                attempts++;
-                System.out.println("Incorrect password \nAttempts left : " + (MAX_ATTEMPTS - attempts));
+            switch (choice) {
+                case 1:
+                    addRestaurant();
+                    break;
+                case 2:
+                    addDishes();
+                    break;
+                case 3:
+                    deleteRestaurant();
+                    break;
+                case 4:
+                    deleteDishes();
+                    break;
+                case 5:
+                    System.out.println("Exiting the manager menu. Goodbye!");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
-        } while (attempts < MAX_ATTEMPTS);
 
-        if (attempts >= MAX_ATTEMPTS) {
-            System.out.println("Too many incorrect attempts\nExiting Admin Section.");
-        }
+        } while (choice != 5);
+
+        scanner.close();
+    }
+
+    void addRestaurant() {
+        // Add restaurant logic
+        System.out.println("Adding a new restaurant...");
+    }
+
+    void addDishes() {
+        // Add dishes logic
+        System.out.println("Adding dishes to a restaurant...");
+    }
+
+    void deleteRestaurant() {
+        // Delete restaurant logic
+        System.out.println("Deleting a restaurant...");
+    }
+
+    void deleteDishes() {
+        // Delete dishes logic
+        System.out.println("Deleting dishes from a restaurant...");
+    }
+
+}
+
+class FoodCritic {
+    Scanner scanner = new Scanner(System.in);
+
+    public void viewRestaurant() {
+        // View restaurant logic
+    }
+
+    public void viewDishes() {
+        // View dishes logic
+    }
+
+    public void criticMenu() {
+        int choice;
+
+        do {
+            System.out.println("Food Critic Menu:");
+            System.out.println("1. View Restaurant");
+            System.out.println("2. View Dishes");
+            System.out.println("3. Exit");
+
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    viewRestaurant();
+                    break;
+                case 2:
+                    viewDishes();
+                    break;
+                case 3:
+                    System.out.println("Exiting the application. Goodbye!");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+
+        } while (choice != 3);
+
+        scanner.close();
     }
 }
 
-class FirstClass {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        User user = new User();
-        Admin admin = new Admin();
-        int choice = 0;
+class Customer {
 
-        while (choice != 3) {
-            System.out.println("Login as: ");
-            System.out.println("  1. User");
-            System.out.println("  2. Admin");
-            System.out.println("  3. Close the program");
-            System.out.print("Your choice : ");
+    Scanner scanner = new Scanner(System.in);
 
-            choice = sc.nextInt();
-            switch (choice) {
+    public void customerMenu() {
+        int mainChoice;
+
+        do {
+            System.out.println("Customer Main Menu:");
+            System.out.println("1. View Restaurant");
+            System.out.println("2. Balance");
+            System.out.println("3. View Previous Orders");
+            System.out.println("4. Exit");
+
+            System.out.print("Enter your choice: ");
+            mainChoice = scanner.nextInt();
+
+            switch (mainChoice) {
                 case 1:
-                    user.userMenu();
+                    viewRestaurant();
                     break;
-
                 case 2:
-                    admin.adminMenu();
+                    balanceSubMenu();
                     break;
-
                 case 3:
-                    System.out.println("Exiting");
+                    viewPreviousOrders();
                     break;
-
+                case 4:
+                    System.out.println("Exiting the application. Goodbye!");
+                    System.exit(0);
+                    break;
                 default:
-                    System.out.println("Pick from 1 to 3");
-                    break;
+                    System.out.println("Invalid choice. Please try again.");
             }
+
+        } while (mainChoice != 4);
+
+    }
+
+    void viewRestaurant() {
+
+    }
+
+    void balanceSubMenu() {
+        int balanceChoice;
+        do {
+            System.out.println("Balance Submenu:");
+            System.out.println("1. View Balance");
+            System.out.println("2. Deposit Money");
+            System.out.println("3. Back to Main Menu");
+
+            System.out.print("Enter your choice: ");
+            balanceChoice = scanner.nextInt();
+
+            switch (balanceChoice) {
+                case 1:
+                    viewBalance();
+                    break;
+                case 2:
+                    depositMoney();
+                    break;
+                case 3:
+                    return; // Back to the main menu
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while (balanceChoice != 3);
+    }
+
+    void viewBalance() {
+        // View balance logic
+    }
+
+    void depositMoney() {
+        // Deposit money logic
+    }
+
+    void viewPreviousOrders() {
+        // View previous orders logic
+    }
+
+}
+
+class Login {
+    Scanner scanner = new Scanner(System.in);
+
+    void passCheck() {
+
+        int maxAttempts = 3;
+        int currentAttempt = 0;
+
+        System.out.println("Welcome to the Login Page!");
+
+        while (currentAttempt < maxAttempts) {
+
+            System.out.print("Enter your ID: ");
+            String userId = scanner.nextLine();
+
+            System.out.print("Enter your password: ");
+            String password = scanner.nextLine();
+
+            if (userId.equalsIgnoreCase("ProductManager") && password.equals("Pass1")) {
+                System.out.println("Successful Login");
+                System.out.println("Welcome Manager!");
+                ProductManager PM = new ProductManager();
+                PM.managerMenu();
+                break;
+
+            } else if (userId.equalsIgnoreCase("FoodCritic") && password.equals("Pass2")) {
+                System.out.println("Successful Login");
+                System.out.println("Welcome Food Critic!");
+                FoodCritic FC = new FoodCritic();
+                FC.criticMenu();
+                break;
+
+            } else if (userId.equalsIgnoreCase("Customer") && password.equals("Pass3")) {
+                System.out.println("Successful Login");
+                System.out.println("Welcome Customer!");
+                Customer CM = new Customer();
+                CM.customerMenu();
+                break;
+
+            } else {
+                System.out.println("Invalid credentials. Please try again.");
+                currentAttempt++;
+
+            }
+
         }
 
-        sc.close(); // Close the scanner to prevent resource leak
+        if (currentAttempt == maxAttempts) {
+            System.out.println("Maximum attempts reached. \n Your account is locked for 24 hour");
+            System.exit(0);
+        }
+
+    }
+}
+
+class Hotel {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Login log = new Login();
+
+        // logging in
+        log.passCheck();
     }
 }
