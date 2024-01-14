@@ -13,6 +13,14 @@ class Dish {
 
     void addDishToArray(Dish newDish) {
         Dish[] newArray = new Dish[allDishes.length + 1];
+        for (int i = 0; i < allDishes.length; i++) {
+            newArray[i] = allDishes[i];
+        }
+
+        newArray[allDishes.length] = newDish;
+        allDishes = newArray;
+        // this code increse the length of array by 1
+    }
 
     void dishInput() {
         System.out.println("Enter the dish name:");
@@ -27,6 +35,9 @@ class Dish {
 
         System.out.println("Enter the time of preparation (in minutes):");
         this.timeOfPreparation = scanner.nextInt();
+
+        addDishToArray(this);
+        // Adds the created dish to the array
 
     }
 
@@ -101,6 +112,7 @@ class Dish {
 
 class Restaurant {
     Scanner scanner = new Scanner(System.in);
+    Dish ds = new Dish();
 
     String name;
     String address;
@@ -108,6 +120,18 @@ class Restaurant {
     int noOfStars;
     int noOfReviews;
     Dish[] dishes;
+
+    static Restaurant[] allRestaurants = new Restaurant[0];
+
+    void addRestaurantToArray(Restaurant newRestaurant) {
+        Restaurant[] newArray = new Restaurant[allRestaurants.length + 1];
+        for (int i = 0; i < allRestaurants.length; i++) {
+            newArray[i] = allRestaurants[i];
+        }
+
+        newArray[allRestaurants.length] = newRestaurant;
+        allRestaurants = newArray;
+    }
 
     void RestaurantInput() {
         System.out.println("Enter the restaurant name:");
@@ -128,6 +152,18 @@ class Restaurant {
         int numDishes = scanner.nextInt();
         scanner.nextLine();
 
+        Dish[] dishArray = new Dish[numDishes];
+        // Creates an array of Dish objects with a capacity of n
+
+        for (int i = 0; i < numDishes; i++) {
+            dishArray[i] = new Dish();
+            System.out.println("Enter details for Dish " + (i + 1) + ":");
+            System.out.println("------------------------------");
+
+            dishes[i].dishInput();
+        }
+
+        addRestaurantToArray(this);
     }
 
     void restaurantTheme() {
@@ -153,6 +189,22 @@ class Restaurant {
             default:
                 System.out.println("Invalid choice. Setting theme to Fast Food.");
                 this.theme = "Fast Food";
+        }
+    }
+
+    void restaurantPrint() {
+        System.out.println("Restaurant Name: " + this.name);
+        System.out.println("Address: " + this.address);
+        System.out.println("Theme: " + this.theme);
+        System.out.println("Number of Stars: " + this.noOfStars);
+        System.out.println("Number of Reviews: " + this.noOfReviews);
+    }
+
+    void restaurantMenuPrint() {
+        System.out.println("Dishes:");
+        for (Dish dish : this.dishes) {
+            dish.dishPrint(); // Use dishPrint method from Dish class
+            System.out.println("------------------------------");
         }
     }
 
