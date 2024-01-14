@@ -9,31 +9,35 @@ class Dish {
     int price;
     int timeOfPreparation;
 
-    static Dish[] allDishes = new Dish[0];
+    static Dish[] allrestrauntFoodMenu = new Dish[0];
+
+    Dish() {
+        // Default constructor
+    }
 
     void addDishToArray(Dish newDish) {
-        Dish[] newArray = new Dish[allDishes.length + 1];
-        for (int i = 0; i < allDishes.length; i++) {
-            newArray[i] = allDishes[i];
+        Dish[] newArray = new Dish[allrestrauntFoodMenu.length + 1];
+        for (int i = 0; i < allrestrauntFoodMenu.length; i++) {
+            newArray[i] = allrestrauntFoodMenu[i];
         }
 
-        newArray[allDishes.length] = newDish;
-        allDishes = newArray;
+        newArray[allrestrauntFoodMenu.length] = newDish;
+        allrestrauntFoodMenu = newArray;
         // this code increse the length of array by 1
     }
 
     void dishInput() {
-        System.out.println("Enter the dish name:");
+        System.out.print("Enter the dish name : ");
         this.name = scanner.nextLine();
 
         dishCategory();
 
         dishCuisine();
 
-        System.out.println("Enter the price:");
+        System.out.print("Enter the price : ");
         this.price = scanner.nextInt();
 
-        System.out.println("Enter the time of preparation (in minutes):");
+        System.out.print("Enter the time of preparation (in minutes) : ");
         this.timeOfPreparation = scanner.nextInt();
 
         addDishToArray(this);
@@ -102,11 +106,11 @@ class Dish {
     }
 
     void dishPrint() {
-        System.out.println("Dish Name: " + this.name);
-        System.out.println("Category: " + this.category);
-        System.out.println("Cuisine: " + this.cuisine);
-        System.out.println("Price: " + this.price);
-        System.out.println("Time of Preparation: " + this.timeOfPreparation + " minutes");
+        System.out.println("Dish Name : " + this.name);
+        System.out.println("Category : " + this.category);
+        System.out.println("Cuisine : " + this.cuisine);
+        System.out.println("Price : " + this.price);
+        System.out.println("Time of Preparation : " + this.timeOfPreparation + " minutes");
     }
 }
 
@@ -119,7 +123,7 @@ class Restaurant {
     String theme;
     int noOfStars;
     int noOfReviews;
-    Dish[] dishes;
+    Dish[] restrauntFoodMenu;
 
     static Restaurant[] allRestaurants = new Restaurant[0];
 
@@ -134,33 +138,33 @@ class Restaurant {
     }
 
     void RestaurantInput() {
-        System.out.println("Enter the restaurant name:");
+        System.out.print("Enter the Restaurant Name : ");
         this.name = scanner.nextLine();
 
-        System.out.println("Enter the restaurant address:");
+        System.out.print("Enter the Restaurant Address : ");
         this.address = scanner.nextLine();
 
         restaurantTheme();
 
-        System.out.println("Enter the number of stars:");
+        System.out.print("Enter the Number of Stars : ");
         this.noOfStars = scanner.nextInt();
 
-        System.out.println("Enter the number of reviews:");
+        System.out.print("Enter the Number of Reviews : ");
         this.noOfReviews = scanner.nextInt();
 
-        System.out.println("Enter the number of dishes:");
-        int numDishes = scanner.nextInt();
+        System.out.print("Enter the Number of restrauntFoodMenu : ");
+        int numrestrauntFoodMenu = scanner.nextInt();
         scanner.nextLine();
 
-        Dish[] dishArray = new Dish[numDishes];
+        Dish[] dishArray = new Dish[numrestrauntFoodMenu];
         // Creates an array of Dish objects with a capacity of n
 
-        for (int i = 0; i < numDishes; i++) {
+        for (int i = 0; i < numrestrauntFoodMenu; i++) {
             dishArray[i] = new Dish();
-            System.out.println("Enter details for Dish " + (i + 1) + ":");
+            System.out.println("Enter details for Dish " + (i + 1) + " : ");
             System.out.println("------------------------------");
 
-            dishes[i].dishInput();
+            dishArray[i].dishInput();
         }
 
         addRestaurantToArray(this);
@@ -192,19 +196,24 @@ class Restaurant {
         }
     }
 
-    void restaurantPrint() {
-        System.out.println("Restaurant Name: " + this.name);
-        System.out.println("Address: " + this.address);
-        System.out.println("Theme: " + this.theme);
-        System.out.println("Number of Stars: " + this.noOfStars);
-        System.out.println("Number of Reviews: " + this.noOfReviews);
-    }
-
-    void restaurantMenuPrint() {
-        System.out.println("Dishes:");
-        for (Dish dish : this.dishes) {
-            dish.dishPrint(); // Use dishPrint method from Dish class
-            System.out.println("------------------------------");
+    void printAllRestaurants() {
+        if (allRestaurants.length == 0) {
+            System.out.println("Currently, no restaurants available.");
+        } else {
+            System.out.println("All Restaurants:");
+            for (Restaurant restaurant : allRestaurants) {
+                System.out.println("------------------------------");
+                System.out.println("Restaurant Name : " + restaurant.name);
+                System.out.println("Address : " + restaurant.address);
+                System.out.println("Theme : " + restaurant.theme);
+                System.out.println("Average Stars : " + (restaurant.noOfStars / restaurant.noOfReviews));
+                // Restraunt's Menu
+                System.out.println("Dishes of Restaunt  : " + restaurant.name);
+                for (Dish dish : restaurant.restrauntFoodMenu) {
+                    dish.dishPrint(); // Use dishPrint method from Dish class
+                    System.out.println("------------------------------");
+                }
+            }
         }
     }
 
@@ -212,37 +221,41 @@ class Restaurant {
 
 class ProductManager {
     Scanner scanner = new Scanner(System.in);
+    Dish ds = new Dish();
+    Restaurant rs = new Restaurant();
+    Login log = new Login();
 
     void managerMenu() {
         int choice;
 
         do {
-            System.out.println("Manager Menu:");
+            System.out.println("============================================");
+            System.out.println("Manager Menu : ");
             System.out.println("1. Add Restaurant");
-            System.out.println("2. Add Dishes");
+            System.out.println("2. Add restrauntFoodMenu");
             System.out.println("3. Delete Restaurant");
-            System.out.println("4. Delete Dishes");
-            System.out.println("5. Exit");
+            System.out.println("4. Delete restrauntFoodMenu");
+            System.out.println("5. Exit to Login Page");
 
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
 
             switch (choice) {
                 case 1:
-                    addRestaurant();
+                    rs.RestaurantInput();
                     break;
                 case 2:
-                    addDishes();
+                    ds.dishInput();
                     break;
                 case 3:
                     deleteRestaurant();
                     break;
                 case 4:
-                    deleteDishes();
+                    deleterestrauntFoodMenu();
                     break;
                 case 5:
-                    System.out.println("Exiting the manager menu. Goodbye!");
-                    System.exit(0);
+                    System.out.println("Exiting the Manager Menu. Goodbye!");
+                    log.passCheck();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -253,61 +266,55 @@ class ProductManager {
         scanner.close();
     }
 
-    void addRestaurant() {
-        // Add restaurant logic
-        System.out.println("Adding a new restaurant...");
-    }
-
-    void addDishes() {
-        // Add dishes logic
-        System.out.println("Adding dishes to a restaurant...");
-    }
-
     void deleteRestaurant() {
         // Delete restaurant logic
         System.out.println("Deleting a restaurant...");
     }
 
-    void deleteDishes() {
-        // Delete dishes logic
-        System.out.println("Deleting dishes from a restaurant...");
+    void deleterestrauntFoodMenu() {
+        // Delete restrauntFoodMenu logic
+        System.out.println("Deleting restrauntFoodMenu from a restaurant...");
     }
 
 }
 
 class FoodCritic {
     Scanner scanner = new Scanner(System.in);
+    Dish ds = new Dish();
+    Restaurant rs = new Restaurant();
+    Login log = new Login();
 
     public void viewRestaurant() {
         // View restaurant logic
     }
 
-    public void viewDishes() {
-        // View dishes logic
+    public void viewrestrauntFoodMenu() {
+        // View restrauntFoodMenu logic
     }
 
     public void criticMenu() {
         int choice;
 
         do {
+            System.out.println("============================================");
             System.out.println("Food Critic Menu:");
             System.out.println("1. View Restaurant");
-            System.out.println("2. View Dishes");
-            System.out.println("3. Exit");
+            System.out.println("2. View restrauntFoodMenu");
+            System.out.println("3. Exit to Login Page");
 
-            System.out.print("Enter your choice: ");
+            System.out.print("Enter your choice : ");
             choice = scanner.nextInt();
 
             switch (choice) {
                 case 1:
-                    viewRestaurant();
+                    rs.printAllRestaurants();
                     break;
                 case 2:
-                    viewDishes();
+                    viewrestrauntFoodMenu();
                     break;
                 case 3:
-                    System.out.println("Exiting the application. Goodbye!");
-                    System.exit(0);
+                    System.out.println("Exiting the Critic Menu. Goodbye!");
+                    log.passCheck();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -322,23 +329,29 @@ class FoodCritic {
 class Customer {
 
     Scanner scanner = new Scanner(System.in);
+    Dish ds = new Dish();
+    Restaurant rs = new Restaurant();
+    Login log = new Login();
+
+    static int balance = 5000;
 
     public void customerMenu() {
         int mainChoice;
 
         do {
-            System.out.println("Customer Main Menu:");
+
+            System.out.println("Customer Menu:");
             System.out.println("1. View Restaurant");
             System.out.println("2. Balance");
             System.out.println("3. View Previous Orders");
-            System.out.println("4. Exit");
+            System.out.println("4. Exit to Login Page");
 
             System.out.print("Enter your choice: ");
             mainChoice = scanner.nextInt();
 
             switch (mainChoice) {
                 case 1:
-                    viewRestaurant();
+                    rs.printAllRestaurants();
                     break;
                 case 2:
                     balanceSubMenu();
@@ -347,8 +360,8 @@ class Customer {
                     viewPreviousOrders();
                     break;
                 case 4:
-                    System.out.println("Exiting the application. Goodbye!");
-                    System.exit(0);
+                    System.out.println("Exiting the Customer Menu. Goodbye!");
+                    log.passCheck();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -375,25 +388,24 @@ class Customer {
 
             switch (balanceChoice) {
                 case 1:
-                    viewBalance();
+                    System.out.println("Balance : " + balance);
                     break;
                 case 2:
                     depositMoney();
                     break;
                 case 3:
-                    return; // Back to the main menu
+                    return; // Back to the Customer menu
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
         } while (balanceChoice != 3);
     }
 
-    void viewBalance() {
-        // View balance logic
-    }
-
     void depositMoney() {
-        // Deposit money logic
+        System.out.print("Enter Deposit Amount : ");
+        balance += scanner.nextInt();
+        System.out.println("New Balance : " + balance);
+
     }
 
     void viewPreviousOrders() {
@@ -410,6 +422,7 @@ class Login {
         int maxAttempts = 3;
         int currentAttempt = 0;
 
+        System.out.println("============================================");
         System.out.println("Welcome to the Login Page!");
 
         while (currentAttempt < maxAttempts) {
@@ -423,6 +436,7 @@ class Login {
             if (userId.equalsIgnoreCase("ProductManager") && password.equals("Pass1")) {
                 System.out.println("Successful Login");
                 System.out.println("Welcome Manager!");
+                System.out.println("============================================");
                 ProductManager PM = new ProductManager();
                 PM.managerMenu();
                 break;
@@ -430,6 +444,7 @@ class Login {
             } else if (userId.equalsIgnoreCase("FoodCritic") && password.equals("Pass2")) {
                 System.out.println("Successful Login");
                 System.out.println("Welcome Food Critic!");
+                System.out.println("============================================");
                 FoodCritic FC = new FoodCritic();
                 FC.criticMenu();
                 break;
@@ -437,6 +452,8 @@ class Login {
             } else if (userId.equalsIgnoreCase("Customer") && password.equals("Pass3")) {
                 System.out.println("Successful Login");
                 System.out.println("Welcome Customer!");
+                System.out.println("============================================");
+
                 Customer CM = new Customer();
                 CM.customerMenu();
                 break;
@@ -460,6 +477,9 @@ class Login {
 class Hotel {
 
     public static void main(String[] args) {
+        // In this program there is no way to close the progrem, as in real life use f
+        // someone closes the program all data would be lost
+        // Which is not Ideal
         Scanner scanner = new Scanner(System.in);
         Login log = new Login();
 
