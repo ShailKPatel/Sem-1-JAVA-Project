@@ -53,8 +53,10 @@ class completeRestaurantArray {
         }
     }
 
-    void restaurantReview(int i) {
-        i--;
+    void restaurantReview() {
+        System.out.println("Choose a restaurant (1 to " + allRestaurants.length + "): ");
+        int restaurantChoice = scanner.nextInt();
+        int i = restaurantChoice - 1;
         while (true) {
 
             System.out.println("Enter star rating (0 to 5): ");
@@ -283,9 +285,9 @@ class ProductManager {
             System.out.println("============================================");
             System.out.println("Manager Menu : ");
             System.out.println("1. Add Restaurant");
-            System.out.println("2. Add restrauntFoodMenu");
+            System.out.println("2. Add Dishes");
             System.out.println("3. Delete Restaurant");
-            System.out.println("4. Delete restrauntFoodMenu");
+            System.out.println("4. Delete Dishes");
             System.out.println("5. Exit to Login Page");
 
             System.out.print("Enter your choice: ");
@@ -302,7 +304,7 @@ class ProductManager {
                     deleteRestaurant();
                     break;
                 case 4:
-                    //deleterestrauntFoodMenu();
+                    deleteRestaurantDishes();
                     break;
                 case 5:
                     System.out.println("Exiting the Manager Menu. Goodbye!");
@@ -337,6 +339,7 @@ class FoodCritic {
     void reviewRestraunt() {
         cra.printAllRestaurants();
         // printing restraunt list
+        cra.restaurantReview();
 
     }
 
