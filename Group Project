@@ -36,6 +36,20 @@ class completeRestrauntArray {
             }
         }
     }
+    void printRestaurantMenu(int i){
+        i--;//Since Zero Indexing
+        if(allRestaurants[i].dishArray.length == 0){
+            System.out.println("No dishes in the menu for this restaurant.");
+        }
+        else{
+            System.out.println("Dishes in the Menu:");
+            for (int j = 0; j < allRestaurants[i].dishArray.length; j++) {
+                System.out.println("Dish " + (j + 1) + ":");
+                allRestaurants[i].dishArray[j].dishPrint();
+                System.out.println("------------------------------");
+            }
+        }
+    }
 
 }
 
