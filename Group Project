@@ -54,25 +54,29 @@ class completeRestaurantArray {
     }
 
     void restaurantReview() {
-        System.out.println("Choose a restaurant (1 to " + allRestaurants.length + "): ");
-        int restaurantChoice = scanner.nextInt();
-        int i = restaurantChoice - 1;
-        while (true) {
+        if (allRestaurants.length == 0) {
 
-            System.out.println("Enter star rating (0 to 5): ");
-            int starRating = scanner.nextInt();
+        } else {
+            System.out.println("Choose a restaurant (1 to " + allRestaurants.length + "): ");
+            int restaurantChoice = scanner.nextInt();
+            int i = restaurantChoice - 1;
+            while (true) {
 
-            if (starRating >= 0 && starRating <= 5) {
+                System.out.println("Enter star rating (0 to 5): ");
+                int starRating = scanner.nextInt();
 
-                Restaurant chosenRestaurant = allRestaurants[i];
-                chosenRestaurant.noOfStars += starRating;
-                chosenRestaurant.noOfReviews++;
-                System.out.println("New Average Stars for " + chosenRestaurant.name + ": "
-                        + chosenRestaurant.noOfStars / chosenRestaurant.noOfReviews);
+                if (starRating >= 0 && starRating <= 5) {
 
-                break;
-            } else {
-                System.out.println("Invalid star rating. Please enter a rating between 0 and 5.");
+                    Restaurant chosenRestaurant = allRestaurants[i];
+                    chosenRestaurant.noOfStars += starRating;
+                    chosenRestaurant.noOfReviews++;
+                    System.out.println("New Average Stars for " + chosenRestaurant.name + ": "
+                            + chosenRestaurant.noOfStars / chosenRestaurant.noOfReviews);
+
+                    break;
+                } else {
+                    System.out.println("Invalid star rating. Please enter a rating between 0 and 5.");
+                }
             }
         }
     }
@@ -89,7 +93,6 @@ class Dish {
     int timeOfPreparation;
 
     Dish dishInput() {
-        scanner.nextLine();
 
         System.out.print("Enter the dish name : ");
         this.name = scanner.nextLine();
@@ -112,7 +115,6 @@ class Dish {
     void dishCategory() {
         System.out.println("Choose category (1-5):\n1. Starter\n2. Snack\n3. Main Meal\n4. Dessert\n5. Miscellaneous");
         int choice = scanner.nextInt();
-        scanner.nextLine();
 
         switch (choice) {
             case 1:
@@ -141,7 +143,6 @@ class Dish {
         System.out.println(
                 "Choose cuisine:\n1. Indian\n2. Italian\n3. Gujarati\n4. Mexican\n5. South Indian\n6. Continental\n7. Punjabi");
         int choice = scanner.nextInt();
-        scanner.nextLine();
 
         switch (choice) {
             case 1:
@@ -260,11 +261,12 @@ class Restaurant {
 
     void printDishArray() {
         if (dishArray.length == 0) {
-            System.out.println("This Restraunt isn't currently serving any Dishes.");
+            System.out.println("This Restraunt isn't serving.");
         } else {
-            System.out.println("Dishes in the Restaurant: " + this.name);
+            System.out.println("Dishes in the Restaurant : " + this.name);
+            System.out.println();
             for (int i = 0; i < dishArray.length; i++) {
-                System.out.println("Dish " + (i + 1) + ":");
+                System.out.println("Dish " + (i + 1) + " : ");
                 this.dishArray[i].dishPrint(); // Using dishPrint method from Dish class
                 System.out.println("------------------------------");
             }
@@ -282,6 +284,7 @@ class ProductManager {
         int choice;
 
         do {
+
             System.out.println("============================================");
             System.out.println("Manager Menu : ");
             System.out.println("1. Add Restaurant");
@@ -290,7 +293,7 @@ class ProductManager {
             System.out.println("4. Delete Dishes");
             System.out.println("5. Exit to Login Page");
 
-            System.out.print("Enter your choice: ");
+            System.out.print("Enter your choice : ");
             choice = scanner.nextInt();
 
             switch (choice) {
@@ -387,13 +390,14 @@ class Customer {
 
     static int balance = 5000;
 
-    public void customerMenu() {
+    void customerMenu() {
         int mainChoice;
 
         do {
 
+            System.out.println();
             System.out.println("Customer Menu:");
-            System.out.println("1. View Restaurant");
+            System.out.println("1. Order Food");
             System.out.println("2. Balance");
             System.out.println("3. View Previous Orders");
             System.out.println("4. Exit to Login Page");
@@ -403,7 +407,7 @@ class Customer {
 
             switch (mainChoice) {
                 case 1:
-                    cra.printAllRestaurants();
+                    orderFood();
                     break;
                 case 2:
                     balanceSubMenu();
@@ -423,13 +427,27 @@ class Customer {
 
     }
 
-    void viewRestaurant() {
+    void orderFood() {
+        cra.printAllRestaurants();
 
+        if (cra.allRestaurants.length == 0) {
+        } else {
+            System.out.println("Choose a restaurant (1 to " + cra.allRestaurants.length + "): ");
+            int restaurantChoice = scanner.nextInt();
+            int i = restaurantChoice - 1;
+            if (i >= 0 && i < cra.allRestaurants.length) {
+                cra.printRestaurantMenu(restaurantChoice);
+            } else {
+                System.out.println("Invalid restaurant choice. Please try again.");
+            }
+        }
     }
 
     void balanceSubMenu() {
         int balanceChoice;
         do {
+            System.out.println("------------------------------");
+            System.out.println();
             System.out.println("Balance Submenu:");
             System.out.println("1. View Balance");
             System.out.println("2. Deposit Money");
@@ -441,14 +459,22 @@ class Customer {
             switch (balanceChoice) {
                 case 1:
                     System.out.println("Balance : " + balance);
+                    System.out.println("------------------------------");
+                    System.out.println();
                     break;
                 case 2:
                     depositMoney();
+                    System.out.println("------------------------------");
+                    System.out.println();
                     break;
                 case 3:
+                    System.out.println("------------------------------");
+                    System.out.println();
                     return; // Back to the Customer menu
                 default:
                     System.out.println("Invalid choice. Please try again.");
+                    System.out.println("------------------------------");
+                    System.out.println();
             }
         } while (balanceChoice != 3);
     }
