@@ -391,6 +391,15 @@ class Customer {
     completeRestaurantArray cra = new completeRestaurantArray();
 
     static int balance = 5000;
+    Dish[] previousOrders = new Dish[0];
+
+    void increasePreviousOrders() {
+        Dish[] newArray = new Dish[previousOrders.length + 1];
+        for (int i = 0; i < previousOrders.length; i++) {
+            newArray[i] = previousOrders[i];
+        }
+        previousOrders = newArray;
+    }
 
     void customerMenu() {
         int mainChoice;
@@ -531,6 +540,10 @@ class Customer {
 class Login {
     Scanner scanner = new Scanner(System.in);
 
+    String productManagerPassword = "Pass1";
+    String foodCriticPassword = "Pass2";
+    String customerPassword = "Pass3";
+
     void passCheck() {
 
         int maxAttempts = 3;
@@ -547,7 +560,7 @@ class Login {
             System.out.print("Enter your password: ");
             String password = scanner.nextLine();
 
-            if (userId.equalsIgnoreCase("ProductManager") && password.equals("Pass1")) {
+            if (userId.equalsIgnoreCase("ProductManager") && password.equals(productManagerPassword)) {
                 System.out.println("Successful Login");
                 System.out.println("Welcome Manager!");
                 System.out.println("============================================");
@@ -555,7 +568,7 @@ class Login {
                 PM.managerMenu();
                 break;
 
-            } else if (userId.equalsIgnoreCase("FoodCritic") && password.equals("Pass2")) {
+            } else if (userId.equalsIgnoreCase("FoodCritic") && password.equals(foodCriticPassword)) {
                 System.out.println("Successful Login");
                 System.out.println("Welcome Food Critic!");
                 System.out.println("============================================");
@@ -563,7 +576,7 @@ class Login {
                 FC.criticMenu();
                 break;
 
-            } else if (userId.equalsIgnoreCase("Customer") && password.equals("Pass3")) {
+            } else if (userId.equalsIgnoreCase("Customer") && password.equals(customerPassword)) {
                 System.out.println("Successful Login");
                 System.out.println("Welcome Customer!");
                 System.out.println("============================================");
