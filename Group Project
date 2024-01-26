@@ -1,8 +1,31 @@
 import java.util.*;
 
+class InputValidator {
+    // This program will make sure that you don't accidentally crash the program
+    // when you enter something other than an int
+
+    int getIntInput(String prompt) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.print(prompt);
+
+            String userInput = scanner.nextLine();
+
+            // in built program - to verify the presence of only digits in the string.
+            if (userInput.matches("\\d+")) {
+                return Integer.parseInt(userInput);
+            } else {
+                System.out.println("Invalid input. Please enter a valid integer.");
+            }
+        }
+    }
+}
+
 class completeRestaurantArray {
     Scanner scanner = new Scanner(System.in);
     Restaurant rs = new Restaurant();
+    InputValidator iv = new InputValidator();
 
     static Restaurant[] allRestaurants = new Restaurant[0];
 
@@ -46,7 +69,7 @@ class completeRestaurantArray {
         } else {
             System.out.println("Dishes in the Menu:");
             for (int j = 0; j < allRestaurants[i].dishArray.length; j++) {
-                System.out.println("Dish " + (j + 1) + ":");
+                System.out.println("Dish " + (j + 1) + " : ");
                 allRestaurants[i].dishArray[j].dishPrint();
                 System.out.println("------------------------------");
             }
@@ -57,25 +80,23 @@ class completeRestaurantArray {
         if (allRestaurants.length == 0) {
 
         } else {
-            System.out.println("Choose a restaurant (1 to " + allRestaurants.length + "): ");
-            int restaurantChoice = scanner.nextInt();
+            int restaurantChoice = iv.getIntInput("Choose a Restaurant (1 to " + allRestaurants.length + ") : ");
             int i = restaurantChoice - 1;
             while (true) {
 
-                System.out.println("Enter star rating (0 to 5): ");
-                int starRating = scanner.nextInt();
+                int starRating = iv.getIntInput("Enter Rating (0 to 5) : ");
 
                 if (starRating >= 0 && starRating <= 5) {
 
                     Restaurant chosenRestaurant = allRestaurants[i];
                     chosenRestaurant.noOfStars += starRating;
                     chosenRestaurant.noOfReviews++;
-                    System.out.println("New Average Stars for " + chosenRestaurant.name + ": "
+                    System.out.println("New Average Stars for " + chosenRestaurant.name + " : "
                             + chosenRestaurant.noOfStars / chosenRestaurant.noOfReviews);
 
                     break;
                 } else {
-                    System.out.println("Invalid star rating. Please enter a rating between 0 and 5.");
+                    System.out.println("Invalid Star Rating\nPlease enter a rating between 0 and 5.");
                 }
             }
         }
@@ -85,6 +106,7 @@ class completeRestaurantArray {
 
 class Dish {
     Scanner scanner = new Scanner(System.in);
+    InputValidator iv = new InputValidator();
 
     String name;
     String category;
@@ -94,27 +116,28 @@ class Dish {
 
     Dish dishInput() {
 
-        System.out.print("Enter the dish name : ");
+        System.out.print("Enter Dish Name : ");
         this.name = scanner.nextLine();
+        System.out.println();
 
         dishCategory();
+        System.out.println();
 
         dishCuisine();
+        System.out.println();
 
-        System.out.print("Enter the price : ");
-        this.price = scanner.nextInt();
-        scanner.nextLine();
+        this.price = iv.getIntInput("Enter Price : ");
+        System.out.println();
 
-        System.out.print("Enter the time of preparation (in minutes) : ");
-        this.timeOfPreparation = scanner.nextInt();
-        scanner.nextLine();
+        this.timeOfPreparation = iv.getIntInput("Enter Preparation Time (in minutes) : ");
+        System.out.println();
 
         return this;
     }
 
     void dishCategory() {
-        System.out.println("Choose category (1-5):\n1. Starter\n2. Snack\n3. Main Meal\n4. Dessert\n5. Miscellaneous");
-        int choice = scanner.nextInt();
+        int choice = iv.getIntInput(
+                "1. Starter\n2. Snack\n3. Main Meal\n4. Dessert\n5. Miscellaneous\nChoose Category : ");
 
         switch (choice) {
             case 1:
@@ -133,17 +156,15 @@ class Dish {
                 this.category = "Miscellaneous";
                 break;
             default:
-                System.out.println("Invalid choice. Setting category to Miscellaneous.");
+                System.out.println("Invalid Choice\nSetting Category To Miscellaneous");
                 this.category = "Miscellaneous";
         }
 
     }
 
     void dishCuisine() {
-        System.out.println(
-                "Choose cuisine:\n1. Indian\n2. Italian\n3. Gujarati\n4. Mexican\n5. South Indian\n6. Continental\n7. Punjabi");
-        int choice = scanner.nextInt();
-
+        int choice = iv.getIntInput(
+                "1. Indian\n2. Italian\n3. Gujarati\n4. Mexican\n5. South Indian\n6. Continental\n7. Punjabi\nChoose Cuisine : ");
         switch (choice) {
             case 1:
                 this.cuisine = "Indian";
@@ -167,7 +188,7 @@ class Dish {
                 this.cuisine = "Punjabi";
                 break;
             default:
-                System.out.println("Invalid choice. Setting cuisine to Indian.");
+                System.out.println("Invalid Choice\nSetting Cuisine To Indian");
                 this.cuisine = "Indian";
         }
     }
@@ -184,6 +205,7 @@ class Dish {
 class Restaurant {
     Scanner scanner = new Scanner(System.in);
     Dish ds = new Dish();
+    InputValidator iv = new InputValidator();
 
     String name;
     String address;
@@ -194,30 +216,30 @@ class Restaurant {
 
     Restaurant RestaurantInput() {
 
-        System.out.print("Enter the Restaurant Name : ");
+        System.out.print("Enter Restaurant Name : ");
         this.name = scanner.nextLine();
+        System.out.println();
 
-        System.out.print("Enter the Restaurant Address : ");
+        System.out.print("Enter Restaurant Address : ");
         this.address = scanner.nextLine();
+        System.out.println();
 
         restaurantTheme();
+        System.out.println();
 
-        System.out.print("Enter the Number of Stars : ");
-        this.noOfStars = scanner.nextInt();
+        this.noOfStars = iv.getIntInput("Enter Number of Stars : ");
+        System.out.println();
 
-        System.out.print("Enter the Number of Reviews : ");
-        this.noOfReviews = scanner.nextInt();
-        scanner.nextLine();
-
+        this.noOfReviews = iv.getIntInput("Enter Number of Reviews : ");
+        System.out.println();
         addToDishArray();
 
         return this;
     }
 
     void restaurantTheme() {
-        System.out.println("Choose theme:\n1. Fast Food\n2. Dine In\n3. Food Truck\n4. Cafe\n5. Fine Dining");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+        int choice = iv
+                .getIntInput("1. Fast Food\n2. Dine In\n3. Food Truck\n4. Cafe\n5. Fine Dining\nChoose theme : ");
 
         switch (choice) {
             case 1:
@@ -244,14 +266,13 @@ class Restaurant {
 
     void addToDishArray() {
 
-        System.out.print("Enter the Number of Dishes : ");
-        int numDishes = scanner.nextInt();
-        scanner.nextLine();
+        int numDishes = iv.getIntInput("Enter the Number of Dishes : ");
 
         this.dishArray = new Dish[numDishes];
         // Creates an array of Dish objects with a capacity of n
 
         for (int i = 0; i < numDishes; i++) {
+            System.out.println();
             System.out.println("Enter details for Dish " + (i + 1) + " : ");
             System.out.println("------------------------------");
 
@@ -262,6 +283,7 @@ class Restaurant {
     void printDishArray() {
         if (dishArray.length == 0) {
             System.out.println("This Restraunt isn't serving.");
+            System.out.println();
         } else {
             System.out.println("Dishes in the Restaurant : " + this.name);
             System.out.println();
@@ -279,6 +301,7 @@ class ProductManager {
     Scanner scanner = new Scanner(System.in);
     Login log = new Login();
     completeRestaurantArray cra = new completeRestaurantArray();
+    InputValidator iv = new InputValidator();
 
     void managerMenu() {
         int choice;
@@ -294,12 +317,12 @@ class ProductManager {
             System.out.println("5. Change Password");
             System.out.println("6. Exit to Login Page");
 
-            System.out.print("Enter your choice : ");
-            choice = scanner.nextInt();
+            choice = iv.getIntInput("Enter your choice : ");
 
             switch (choice) {
                 case 1:
                     cra.addRestaurant();
+                    System.out.println();
                     break;
                 case 2:
 
@@ -342,6 +365,7 @@ class FoodCritic {
     Scanner scanner = new Scanner(System.in);
     Login log = new Login();
     completeRestaurantArray cra = new completeRestaurantArray();
+    InputValidator iv = new InputValidator();
 
     void reviewRestraunt() {
         cra.printAllRestaurants();
@@ -361,8 +385,7 @@ class FoodCritic {
             System.out.println("3. Change Password");
             System.out.println("4. Exit to Login Page");
 
-            System.out.print("Enter your choice : ");
-            choice = scanner.nextInt();
+            choice = iv.getIntInput("Enter your choice : ");
 
             switch (choice) {
                 case 1:
@@ -397,6 +420,7 @@ class Customer {
     Restaurant rs = new Restaurant();
     Login log = new Login();
     completeRestaurantArray cra = new completeRestaurantArray();
+    InputValidator iv = new InputValidator();
 
     static int balance = 5000;
     Dish[] previousOrders = new Dish[0];
@@ -410,7 +434,7 @@ class Customer {
     }
 
     void customerMenu() {
-        int mainChoice;
+        int choice;
 
         do {
 
@@ -422,12 +446,11 @@ class Customer {
             System.out.println("4. Change Password");
             System.out.println("5. Exit to Login Page");
 
-            System.out.print("Enter your choice: ");
-            mainChoice = scanner.nextInt();
+            choice = iv.getIntInput("Enter your choice : ");
 
             System.out.println();
 
-            switch (mainChoice) {
+            switch (choice) {
                 case 1:
                     orderFood();
                     System.out.println();
@@ -461,7 +484,7 @@ class Customer {
                     System.out.println("------------------------------");
                     System.out.println();
             }
-        } while (mainChoice != 4);
+        } while (choice != 4);
 
     }
 
@@ -470,8 +493,7 @@ class Customer {
 
         if (cra.allRestaurants.length == 0) {
         } else {
-            System.out.println("Choose a restaurant (1 to " + cra.allRestaurants.length + ") : ");
-            int restaurantChoice = scanner.nextInt();
+            int restaurantChoice = iv.getIntInput("Choose a restaurant (1 to " + cra.allRestaurants.length + ") : ");
             int i = restaurantChoice - 1;
             if (i >= 0 && i < cra.allRestaurants.length) {
                 cra.printRestaurantMenu(restaurantChoice);
@@ -480,8 +502,8 @@ class Customer {
                 System.out.println("------------------------------");
                 System.out.println();
 
-                System.out.println("Choose a dish (1 to " + cra.allRestaurants[i].dishArray.length + ") : ");
-                int dishChoice = scanner.nextInt();
+                int dishChoice = iv
+                        .getIntInput("Choose a dish (1 to " + cra.allRestaurants[i].dishArray.length + ") : ");
 
                 if (dishChoice >= 1 && dishChoice <= cra.allRestaurants[i].dishArray.length) {
 
@@ -509,8 +531,7 @@ class Customer {
             System.out.println("2. Deposit Money");
             System.out.println("3. Back to Main Menu");
 
-            System.out.print("Enter your choice: ");
-            balanceChoice = scanner.nextInt();
+            balanceChoice = iv.getIntInput("Enter your choice: ");
 
             switch (balanceChoice) {
                 case 1:
@@ -536,8 +557,7 @@ class Customer {
     }
 
     void depositMoney() {
-        System.out.print("Enter Deposit Amount : ");
-        balance += scanner.nextInt();
+        balance += iv.getIntInput("Enter Deposit Amount : ");
         System.out.println("New Balance : " + balance);
 
     }
@@ -550,6 +570,7 @@ class Customer {
 
 class Login {
     Scanner scanner = new Scanner(System.in);
+    InputValidator iv = new InputValidator();
 
     String productManagerPassword = "Pass1";
     String foodCriticPassword = "Pass2";
@@ -625,8 +646,9 @@ class Login {
         } else {
 
             ProductManager PM = new ProductManager();
-            PM.managerMenu();
             System.out.println("Incorrect current password. Password not changed.");
+            PM.managerMenu();
+
         }
     }
 
