@@ -362,9 +362,11 @@ class FoodCritic {
             switch (choice) {
                 case 1:
                     cra.printAllRestaurants();
+                    System.out.println("------------------------------");
                     break;
                 case 2:
                     reviewRestraunt();
+                    System.out.println("------------------------------");
                     break;
                 case 3:
                     System.out.println("Exiting the Critic Menu. Goodbye!");
@@ -405,22 +407,38 @@ class Customer {
             System.out.print("Enter your choice: ");
             mainChoice = scanner.nextInt();
 
+            System.out.println();
+
             switch (mainChoice) {
                 case 1:
                     orderFood();
+                    System.out.println();
+                    System.out.println("------------------------------");
+                    System.out.println();
                     break;
                 case 2:
                     balanceSubMenu();
+                    System.out.println();
+                    System.out.println("------------------------------");
+                    System.out.println();
                     break;
                 case 3:
+                    System.out.println();
                     viewPreviousOrders();
+                    System.out.println();
                     break;
                 case 4:
+                    System.out.println();
                     System.out.println("Exiting the Customer Menu. Goodbye!");
+                    System.out.println();
+                    System.out.println("------------------------------");
                     log.passCheck();
                     break;
                 default:
+                    System.out.println();
                     System.out.println("Invalid choice. Please try again.");
+                    System.out.println("------------------------------");
+                    System.out.println();
             }
 
         } while (mainChoice != 4);
@@ -432,11 +450,29 @@ class Customer {
 
         if (cra.allRestaurants.length == 0) {
         } else {
-            System.out.println("Choose a restaurant (1 to " + cra.allRestaurants.length + "): ");
+            System.out.println("Choose a restaurant (1 to " + cra.allRestaurants.length + ") : ");
             int restaurantChoice = scanner.nextInt();
             int i = restaurantChoice - 1;
             if (i >= 0 && i < cra.allRestaurants.length) {
                 cra.printRestaurantMenu(restaurantChoice);
+
+                System.out.println();
+                System.out.println("------------------------------");
+                System.out.println();
+
+                System.out.println("Choose a dish (1 to " + cra.allRestaurants[i].dishArray.length + ") : ");
+                int dishChoice = scanner.nextInt();
+
+                if (dishChoice >= 1 && dishChoice <= cra.allRestaurants[i].dishArray.length) {
+
+                    Dish chosenDish = cra.allRestaurants[i].dishArray[dishChoice - 1];
+
+                    System.out.println("You have selected: " + chosenDish.name);
+                    System.out.println("Price: " + chosenDish.price);
+
+                } else {
+                    System.out.println("Invalid dish choice. Please try again.");
+                }
             } else {
                 System.out.println("Invalid restaurant choice. Please try again.");
             }
