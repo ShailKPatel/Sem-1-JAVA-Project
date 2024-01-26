@@ -291,7 +291,8 @@ class ProductManager {
             System.out.println("2. Add Dishes");
             System.out.println("3. Delete Restaurant");
             System.out.println("4. Delete Dishes");
-            System.out.println("5. Exit to Login Page");
+            System.out.println("5. Change Password");
+            System.out.println("6. Exit to Login Page");
 
             System.out.print("Enter your choice : ");
             choice = scanner.nextInt();
@@ -310,8 +311,11 @@ class ProductManager {
                     deleteRestaurantDishes();
                     break;
                 case 5:
+                    log.changeProductManagerPassword();
+                    break;
+                case 6:
                     System.out.println("Exiting the Manager Menu. Goodbye!");
-                    log.passCheck();
+                    log.logInPage();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -354,7 +358,8 @@ class FoodCritic {
             System.out.println("Food Critic Menu:");
             System.out.println("1. View Restaurants");
             System.out.println("2. Review Restaurants");
-            System.out.println("3. Exit to Login Page");
+            System.out.println("3. Change Password");
+            System.out.println("4. Exit to Login Page");
 
             System.out.print("Enter your choice : ");
             choice = scanner.nextInt();
@@ -369,8 +374,11 @@ class FoodCritic {
                     System.out.println("------------------------------");
                     break;
                 case 3:
+                    log.changeFoodCriticPassword();
+                    break;
+                case 4:
                     System.out.println("Exiting the Critic Menu. Goodbye!");
-                    log.passCheck();
+                    log.logInPage();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -411,7 +419,8 @@ class Customer {
             System.out.println("1. Order Food");
             System.out.println("2. Balance");
             System.out.println("3. View Previous Orders");
-            System.out.println("4. Exit to Login Page");
+            System.out.println("4. Change Password");
+            System.out.println("5. Exit to Login Page");
 
             System.out.print("Enter your choice: ");
             mainChoice = scanner.nextInt();
@@ -437,11 +446,14 @@ class Customer {
                     System.out.println();
                     break;
                 case 4:
+                    log.changeCustomerPassword();
+                    break;
+                case 5:
                     System.out.println();
                     System.out.println("Exiting the Customer Menu. Goodbye!");
                     System.out.println();
                     System.out.println("------------------------------");
-                    log.passCheck();
+                    log.logInPage();
                     break;
                 default:
                     System.out.println();
@@ -449,7 +461,6 @@ class Customer {
                     System.out.println("------------------------------");
                     System.out.println();
             }
-
         } while (mainChoice != 4);
 
     }
@@ -544,7 +555,7 @@ class Login {
     String foodCriticPassword = "Pass2";
     String customerPassword = "Pass3";
 
-    void passCheck() {
+    void logInPage() {
 
         int maxAttempts = 3;
         int currentAttempt = 0;
@@ -599,6 +610,61 @@ class Login {
         }
 
     }
+
+    void changeProductManagerPassword() {
+
+        System.out.print("Enter current password for Product Manager: ");
+        String currentPassword = scanner.nextLine();
+
+        if (currentPassword.equals(productManagerPassword)) {
+            System.out.print("Enter new password for Product Manager: ");
+            String newPassword = scanner.nextLine();
+            productManagerPassword = newPassword;
+            System.out.println("Password Change Successful!");
+            logInPage();
+        } else {
+
+            ProductManager PM = new ProductManager();
+            PM.managerMenu();
+            System.out.println("Incorrect current password. Password not changed.");
+        }
+    }
+
+    void changeFoodCriticPassword() {
+        System.out.print("Enter current password for Food Critic: ");
+        String currentPassword = scanner.nextLine();
+
+        if (currentPassword.equals(foodCriticPassword)) {
+            System.out.print("Enter new password for Food Critic: ");
+            String newPassword = scanner.nextLine();
+            foodCriticPassword = newPassword;
+            System.out.println("Password Change Successful!");
+            logInPage();
+        } else {
+            System.out.println("Incorrect current password. Password not changed.");
+            FoodCritic FC = new FoodCritic();
+            FC.criticMenu();
+        }
+    }
+
+    void changeCustomerPassword() {
+        System.out.print("Enter current password for Customer: ");
+        String currentPassword = scanner.nextLine();
+
+        if (currentPassword.equals(customerPassword)) {
+            System.out.print("Enter new password for Customer: ");
+            String newPassword = scanner.nextLine();
+            customerPassword = newPassword;
+            System.out.println("Password Change Successful!");
+            logInPage();
+        } else {
+            Customer CM = new Customer();
+            System.out.println("Incorrect current password. Password not changed.");
+            CM.customerMenu();
+
+        }
+    }
+
 }
 
 class Hotel {
@@ -611,6 +677,6 @@ class Hotel {
         Login log = new Login();
 
         // logging in
-        log.passCheck();
+        log.logInPage();
     }
 }
