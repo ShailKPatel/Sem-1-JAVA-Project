@@ -24,7 +24,6 @@ class InputValidator {
 
 class completeRestaurantArray {
     Scanner scanner = new Scanner(System.in);
-    Restaurant rs = new Restaurant();
     InputValidator iv = new InputValidator();
 
     static Restaurant[] allRestaurants = new Restaurant[0];
@@ -42,7 +41,7 @@ class completeRestaurantArray {
     void addRestaurant() {
         arrayIncrease();
 
-        allRestaurants[allRestaurants.length - 1] = rs.RestaurantInput();
+        allRestaurants[allRestaurants.length - 1] = new Restaurant();
     }
 
     void printAllRestaurants() {
@@ -114,8 +113,7 @@ class Dish {
     int price;
     int timeOfPreparation;
 
-    Dish dishInput() {
-
+    Dish() {
         System.out.print("Enter Dish Name : ");
         this.name = scanner.nextLine();
         System.out.println();
@@ -132,7 +130,6 @@ class Dish {
         this.timeOfPreparation = iv.getIntInput("Enter Preparation Time (in minutes) : ");
         System.out.println();
 
-        return this;
     }
 
     void dishCategory() {
@@ -204,7 +201,6 @@ class Dish {
 
 class Restaurant {
     Scanner scanner = new Scanner(System.in);
-    Dish ds = new Dish();
     InputValidator iv = new InputValidator();
 
     String name;
@@ -214,7 +210,7 @@ class Restaurant {
     int noOfReviews;
     Dish[] dishArray;
 
-    Restaurant RestaurantInput() {
+    Restaurant() {
 
         System.out.print("Enter Restaurant Name : ");
         this.name = scanner.nextLine();
@@ -234,7 +230,6 @@ class Restaurant {
         System.out.println();
         addToDishArray();
 
-        return this;
     }
 
     void restaurantTheme() {
@@ -276,7 +271,7 @@ class Restaurant {
             System.out.println("Enter details for Dish " + (i + 1) + " : ");
             System.out.println("------------------------------");
 
-            this.dishArray[i] = ds.dishInput();
+            dishArray[i] = new Dish();
         }
     }
 
@@ -289,6 +284,7 @@ class Restaurant {
             System.out.println();
             for (int i = 0; i < dishArray.length; i++) {
                 System.out.println("Dish " + (i + 1) + " : ");
+                System.out.println();
                 this.dishArray[i].dishPrint(); // Using dishPrint method from Dish class
                 System.out.println("------------------------------");
             }
@@ -416,8 +412,6 @@ class FoodCritic {
 class Customer {
 
     Scanner scanner = new Scanner(System.in);
-    Dish ds = new Dish();
-    Restaurant rs = new Restaurant();
     Login log = new Login();
     completeRestaurantArray cra = new completeRestaurantArray();
     InputValidator iv = new InputValidator();
@@ -489,11 +483,16 @@ class Customer {
     }
 
     void orderFood() {
-        cra.printAllRestaurants();
 
         if (cra.allRestaurants.length == 0) {
+
+            System.out.println("No Restaurants Available");
+
         } else {
-            int restaurantChoice = iv.getIntInput("Choose a restaurant (1 to " + cra.allRestaurants.length + ") : ");
+            // prints list of all restaurant
+            cra.printAllRestaurants();
+            System.out.println();
+            int restaurantChoice = iv.getIntInput("Choose a Restaurant (1 to " + cra.allRestaurants.length + ") : ");
             int i = restaurantChoice - 1;
             if (i >= 0 && i < cra.allRestaurants.length) {
                 cra.printRestaurantMenu(restaurantChoice);
@@ -502,18 +501,22 @@ class Customer {
                 System.out.println("------------------------------");
                 System.out.println();
 
-                int dishChoice = iv
-                        .getIntInput("Choose a dish (1 to " + cra.allRestaurants[i].dishArray.length + ") : ");
+                if (cra.allRestaurants[i].dishArray.length != 0) {
+                    int dishChoice = iv
+                            .getIntInput("Choose a dish (1 to " + cra.allRestaurants[i].dishArray.length + ") : ");
 
-                if (dishChoice >= 1 && dishChoice <= cra.allRestaurants[i].dishArray.length) {
+                    if (dishChoice >= 1 && dishChoice <= cra.allRestaurants[i].dishArray.length) {
 
-                    Dish chosenDish = cra.allRestaurants[i].dishArray[dishChoice - 1];
+                        Dish chosenDish = cra.allRestaurants[i].dishArray[dishChoice - 1];
 
-                    System.out.println("You have selected: " + chosenDish.name);
-                    System.out.println("Price: " + chosenDish.price);
+                        System.out.println("You have selected: " + chosenDish.name);
+                        System.out.println("Price: " + chosenDish.price);
 
+                    } else {
+                        System.out.println("Invalid dish choice. Please try again.");
+                    }
                 } else {
-                    System.out.println("Invalid dish choice. Please try again.");
+                    System.out.println("This Restaurant Has No Dishes");
                 }
             } else {
                 System.out.println("Invalid restaurant choice. Please try again.");
@@ -594,7 +597,7 @@ class Login {
 
             if (userId.equalsIgnoreCase("ProductManager") && password.equals(productManagerPassword)) {
                 System.out.println("Successful Login");
-                System.out.println("Welcome Manager!");
+                System.out.println("Welcome Product Manager!");
                 System.out.println("============================================");
                 ProductManager PM = new ProductManager();
                 PM.managerMenu();
