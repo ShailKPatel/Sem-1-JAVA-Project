@@ -103,7 +103,7 @@ class completeRestaurantArray {
         Restaurant[] filter = new Restaurant[0];
 
         for (Restaurant restaurant : allRestaurants) {
-            if (restaurant.theme.equalsIgnoreCase(filterTheme)) {
+            if (restaurant.theme.equals(filterTheme)) {
 
                 Restaurant[] newArray = new Restaurant[filter.length + 1];
                 for (int i = 0; i < filter.length; i++) {
@@ -116,6 +116,44 @@ class completeRestaurantArray {
         }
 
         return filter;
+    }
+
+    Restaurant[] filterArrayByRating(int minRating) {
+        Restaurant[] filter = new Restaurant[0];
+
+        for (Restaurant restaurant : allRestaurants) {
+            if (restaurant.noOfReviews > 0 && (restaurant.noOfStars / restaurant.noOfReviews) >= minRating) {
+
+                Restaurant[] newArray = new Restaurant[filter.length + 1];
+
+                for (int i = 0; i < filter.length; i++) {
+                    newArray[i] = filter[i];
+                }
+                newArray[filter.length] = restaurant;
+
+                filter = newArray;
+            }
+        }
+
+        return filter;
+    }
+
+    Restaurant[] searchArrayName(String searchName) {
+        Restaurant[] searchResult = new Restaurant[0];
+
+        for (Restaurant restaurant : allRestaurants) {
+            if (restaurant.name.equalsIgnoreCase(searchName)) {
+
+                Restaurant[] newArray = new Restaurant[searchResult.length + 1];
+                for (int i = 0; i < searchResult.length; i++) {
+                    newArray[i] = searchResult[i];
+                }
+                searchResult = newArray;
+
+                searchResult[searchResult.length - 1] = restaurant;
+            }
+        }
+        return searchResult;
     }
 
 }
@@ -527,8 +565,7 @@ class Customer {
                     filterRestaurant();
                     break;
                 case 3:
-                    // Implement search logic
-                    System.out.println("Searching for a restaurant...");
+                    searchName();
                     break;
                 default:
                     System.out.println("Invalid choice.");
@@ -593,7 +630,11 @@ class Customer {
         }
 
         Restaurant[] filteredArray = cra.filterArrayTheme(selectedTheme);
-        orderFromArray(filteredArray);
+        if (filteredArray.length == 0) {
+            System.out.println("No restaurants found with the theme: " + selectedTheme);
+        } else {
+            orderFromArray(filteredArray);
+        }
     }
 
     void orderFromArray(Restaurant[] restaurants) {
@@ -670,9 +711,15 @@ class Customer {
                 minRating = 5;
                 break;
             default:
-                System.out.println("Invalid choice. Viewing all restaurants.");
+                System.out.println("Invalid choice. Viewing all restaurants rated 1 stars or above.");
                 minRating = 1;
                 break;
+        }
+        Restaurant[] filteredArray = cra.filterArrayByRating(minRating);
+        if (filteredArray.length == 0) {
+            System.out.println("No restaurants found with a rating of " + minRating + " star(s) or above.");
+        } else {
+            orderFromArray(filteredArray);
         }
     }
 
@@ -714,7 +761,15 @@ class Customer {
 
     void searchName() {
         System.out.print("Enter the Name of the Restaurant :  ");
-        String searchName = scanner.nextLine();
+        String restaurantName = scanner.nextLine();
+
+        Restaurant[] searchResults = cra.searchArrayName(restaurantName);
+        if (searchResults.length == 0) {
+            System.out.println("No restaurants found with the name: " + restaurantName);
+        } else {
+            orderFromArray(searchResults);
+        }
+
     }
 
     void balanceSubMenu() {
