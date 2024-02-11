@@ -438,11 +438,35 @@ class ProductManager {
     }
 
     void deleteRestaurant() {
-
         cra.printAllRestaurants();
-        // printing restraunt list
 
-        int yourChoice = iv.getIntInput("Restaurant You Want to Delete : ");
+        int restaurantChoice = iv.getIntInput("Enter the number of the restaurant you want to delete: ");
+        restaurantChoice--;
+
+        if (restaurantChoice >= 0 && restaurantChoice < cra.allRestaurants.length) {
+            System.out.print("To confirm deletion, please type 'CONFIRM': ");
+            String confirmation = scanner.nextLine();
+
+            if (confirmation.equalsIgnoreCase("CONFIRM")) {
+                Restaurant[] updatedRestaurants = new Restaurant[cra.allRestaurants.length - 1];
+                int index = 0;
+                // using diffrent index so it doesnt affect with deleted one
+
+                for (int i = 0; i < cra.allRestaurants.length; i++) {
+                    if (i != restaurantChoice) {
+                        updatedRestaurants[index++] = cra.allRestaurants[i];
+                    }
+                }
+
+                cra.allRestaurants = updatedRestaurants;
+
+                System.out.println("Restaurant deleted successfully.");
+            } else {
+                System.out.println("Deletion canceled. No changes made.");
+            }
+        } else {
+            System.out.println("Invalid restaurant choice. Please try again.");
+        }
     }
 
 }
