@@ -73,6 +73,20 @@ class completeRestaurantArray {
         }
     }
 
+    void printRestaurantMenuArray(int i, Restaurant[] restaurants) {
+        i--;// Since Zero Indexing
+        if (restaurants[i].dishArray.length == 0) {
+            System.out.println("No dishes in the menu for this restaurant.");
+        } else {
+            System.out.println("Dishes in the Menu:");
+            for (int j = 0; j < restaurants[i].dishArray.length; j++) {
+                System.out.println("Dish " + (j + 1) + " : ");
+                restaurants[i].dishArray[j].dishPrint();
+                System.out.println("------------------------------");
+            }
+        }
+    }
+
     void restaurantReview() {
         if (allRestaurants.length == 0) {
 
@@ -653,7 +667,7 @@ class Customer {
             int restaurantChoice = iv.getIntInput("Choose a Restaurant (1 to " + restaurants.length + ") : ");
             int i = restaurantChoice - 1;
             if (i >= 0 && i < restaurants.length) {
-                cra.printRestaurantMenu(restaurantChoice);
+                cra.printRestaurantMenuArray(restaurantChoice, restaurants);
 
                 System.out.println();
                 System.out.println("------------------------------");
@@ -667,9 +681,7 @@ class Customer {
 
                         Dish chosenDish = restaurants[i].dishArray[dishChoice - 1];
 
-                        System.out.println("You have selected: " + chosenDish.name);
-                        System.out.println("Price: " + chosenDish.price);
-
+                        addToPreviousOrders(chosenDish);
                     } else {
                         System.out.println("Invalid dish choice. Please try again.");
                     }
@@ -679,6 +691,26 @@ class Customer {
             } else {
                 System.out.println("Invalid restaurant choice. Please try again.");
             }
+        }
+    }
+
+    void addToPreviousOrders(Dish dish) {
+        System.out.println("You are about to add the following dish to your previous orders:");
+        System.out.println("Dish Name: " + dish.name);
+        System.out.println("Price: " + dish.price);
+
+        int choice = iv.getIntInput("Do you want to proceed? (1. Yes / 2. No): ");
+        if (choice == 1) {
+            if (balance >= dish.price) {
+                balance -= dish.price;
+                increasePreviousOrders(); // Increase the size of the previousOrders array
+                previousOrders[previousOrders.length - 1] = dish; // Add the dish to the end of the array
+                System.out.println("Dish added to previous orders successfully.");
+            } else {
+                System.out.println("Insufficient balance. Please deposit more money.");
+            }
+        } else {
+            System.out.println("Operation cancelled.");
         }
     }
 
@@ -745,8 +777,7 @@ class Customer {
 
                     Dish chosenDish = cra.allRestaurants[i].dishArray[dishChoice - 1];
 
-                    System.out.println("You have selected: " + chosenDish.name);
-                    System.out.println("Price: " + chosenDish.price);
+                    addToPreviousOrders(chosenDish);
 
                 } else {
                     System.out.println("Invalid dish choice. Please try again.");
@@ -814,7 +845,19 @@ class Customer {
     }
 
     void viewPreviousOrders() {
-        // View previous orders logic
+        if (previousOrders.length == 0) {
+            System.out.println("No previous orders.");
+        } else {
+            System.out.println("Previous Orders:");
+            for (Dish dish : previousOrders) {
+                System.out.println("------------------------------");
+                System.out.println("Dish Name: " + dish.name);
+                System.out.println("Category: " + dish.category);
+                System.out.println("Cuisine: " + dish.cuisine);
+                System.out.println("Price: " + dish.price);
+
+            }
+        }
     }
 
 }
@@ -943,7 +986,7 @@ class Login {
 class Hotel {
 
     public static void main(String[] args) {
-        // In this program there is no way to close the progrem, as in real life use f
+        // In this program there is no way to close the progrem, as in real life use if
         // someone closes the program all data would be lost
         // Which is not Ideal
         Scanner scanner = new Scanner(System.in);
