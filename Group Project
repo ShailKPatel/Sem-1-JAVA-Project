@@ -2,7 +2,7 @@ import java.util.*;
 
 class InputValidator {
     // This program will make sure that you don't accidentally crash the program
-    // when you enter something other than an int
+    // when you enter something other than an int  Dev
 
     int getIntInput(String prompt) {
         Scanner scanner = new Scanner(System.in);
