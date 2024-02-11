@@ -417,12 +417,24 @@ class ProductManager {
     }
 
     void addDishToRestaurant() {
-
         cra.printAllRestaurants();
-        // printing restraunt list
 
-        int yourChoice = iv.getIntInput("Restaurant You Want to Add Dish to : ");
+        int restaurantChoice = iv.getIntInput("Enter the number of the restaurant you want to add a dish to: ");
+        restaurantChoice--;
 
+        if (restaurantChoice >= 0 && restaurantChoice < cra.allRestaurants.length) {
+            Restaurant selectedRestaurant = cra.allRestaurants[restaurantChoice];
+            Dish[] updatedDishArray = new Dish[selectedRestaurant.dishArray.length + 1];
+            for (int i = 0; i < selectedRestaurant.dishArray.length; i++) {
+                updatedDishArray[i] = selectedRestaurant.dishArray[i];
+            }
+            selectedRestaurant.dishArray = updatedDishArray;
+
+            selectedRestaurant.dishArray[selectedRestaurant.dishArray.length - 1] = new Dish();
+            System.out.println("Dish added successfully to the restaurant: " + selectedRestaurant.name);
+        } else {
+            System.out.println("Invalid restaurant choice. Please try again.");
+        }
     }
 
     void deleteRestaurant() {
