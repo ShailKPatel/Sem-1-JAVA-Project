@@ -22,156 +22,6 @@ class InputValidator {
     }
 }
 
-class completeRestaurantArray {
-    Scanner scanner = new Scanner(System.in);
-    InputValidator iv = new InputValidator();
-
-    static Restaurant[] allRestaurants = new Restaurant[0];
-
-    void arrayIncrease() {
-        Restaurant[] newArray = new Restaurant[allRestaurants.length + 1];
-        for (int i = 0; i < allRestaurants.length; i++) {
-            newArray[i] = allRestaurants[i];
-        }
-
-        allRestaurants = newArray;
-        // This code increases the length of the array by 1
-    }
-
-    void addRestaurant() {
-        arrayIncrease();
-
-        allRestaurants[allRestaurants.length - 1] = new Restaurant();
-    }
-
-    void printAllRestaurants() {
-
-        System.out.println("All Restaurants:");
-        for (int i = 0; i < allRestaurants.length; i++) {
-            Restaurant restaurant = allRestaurants[i];
-            System.out.println("------------------------------");
-            System.out.println("Restaurant " + (i + 1) + ":");
-            System.out.println("Restaurant Name : " + restaurant.name);
-            System.out.println("Address : " + restaurant.address);
-            System.out.println("Theme : " + restaurant.theme);
-            System.out.println("Average Stars : " + (restaurant.noOfStars / restaurant.noOfReviews));
-
-        }
-    }
-
-    void printRestaurantMenu(int i) {
-        i--;// Since Zero Indexing
-        if (allRestaurants[i].dishArray.length == 0) {
-            System.out.println("No dishes in the menu for this restaurant.");
-        } else {
-            System.out.println("Dishes in the Menu:");
-            for (int j = 0; j < allRestaurants[i].dishArray.length; j++) {
-                System.out.println("Dish " + (j + 1) + " : ");
-                allRestaurants[i].dishArray[j].dishPrint();
-                System.out.println("------------------------------");
-            }
-        }
-    }
-
-    void printRestaurantMenuArray(int restaurantChoice, Restaurant[] arrayRestaurants) {
-
-        if (arrayRestaurants[restaurantChoice].dishArray.length == 0) {
-            System.out.println("No dishes in the menu for this restaurant.");
-        } else {
-            System.out.println("Dishes in the Menu:");
-            for (int j = 0; j < arrayRestaurants[restaurantChoice].dishArray.length; j++) {
-                System.out.println("Dish " + (j + 1) + " : ");
-                arrayRestaurants[restaurantChoice].dishArray[j].dishPrint();
-                System.out.println("------------------------------");
-            }
-        }
-    }
-
-    void restaurantReview() {
-        if (allRestaurants.length == 0) {
-
-        } else {
-            int restaurantChoice = iv.getIntInput("Choose a Restaurant (1 to " + allRestaurants.length + ") : ");
-            int i = restaurantChoice - 1;
-            while (true) {
-
-                int starRating = iv.getIntInput("Enter Rating (0 to 5) : ");
-
-                if (starRating >= 0 && starRating <= 5) {
-
-                    Restaurant chosenRestaurant = allRestaurants[i];
-                    chosenRestaurant.noOfStars += starRating;
-                    chosenRestaurant.noOfReviews++;
-                    System.out.println("New Average Stars for " + chosenRestaurant.name + " : "
-                            + chosenRestaurant.noOfStars / chosenRestaurant.noOfReviews);
-
-                    break;
-                } else {
-                    System.out.println("Invalid Star Rating\nPlease enter a rating between 0 and 5.");
-                }
-            }
-        }
-    }
-
-    Restaurant[] filterArrayTheme(String filterTheme) {
-        Restaurant[] filter = new Restaurant[0];
-
-        for (Restaurant restaurant : allRestaurants) {
-            if (restaurant.theme.equals(filterTheme)) {
-
-                Restaurant[] newArray = new Restaurant[filter.length + 1];
-                for (int i = 0; i < filter.length; i++) {
-                    newArray[i] = filter[i];
-                }
-                filter = newArray;
-
-                filter[filter.length - 1] = restaurant;
-            }
-        }
-
-        return filter;
-    }
-
-    Restaurant[] filterArrayByRating(int minRating) {
-        Restaurant[] filter = new Restaurant[0];
-
-        for (Restaurant restaurant : allRestaurants) {
-            if (restaurant.noOfReviews > 0 && (restaurant.noOfStars / restaurant.noOfReviews) >= minRating) {
-
-                Restaurant[] newArray = new Restaurant[filter.length + 1];
-
-                for (int i = 0; i < filter.length; i++) {
-                    newArray[i] = filter[i];
-                }
-                newArray[filter.length] = restaurant;
-
-                filter = newArray;
-            }
-        }
-
-        return filter;
-    }
-
-    Restaurant[] searchArrayName(String searchName) {
-        Restaurant[] searchResult = new Restaurant[0];
-
-        for (Restaurant restaurant : allRestaurants) {
-            if (restaurant.name.equalsIgnoreCase(searchName)) {
-
-                Restaurant[] newArray = new Restaurant[searchResult.length + 1];
-                for (int i = 0; i < searchResult.length; i++) {
-                    newArray[i] = searchResult[i];
-                }
-                searchResult = newArray;
-
-                searchResult[searchResult.length - 1] = restaurant;
-            }
-        }
-        return searchResult;
-    }
-
-}
-
 class Dish {
     Scanner scanner = new Scanner(System.in);
     InputValidator iv = new InputValidator();
@@ -368,6 +218,156 @@ class Restaurant {
 
 }
 
+class completeRestaurantArray {
+    Scanner scanner = new Scanner(System.in);
+    InputValidator iv = new InputValidator();
+
+    static Restaurant[] allRestaurants = new Restaurant[0];
+
+    void arrayIncrease() {
+        Restaurant[] newArray = new Restaurant[allRestaurants.length + 1];
+        for (int i = 0; i < allRestaurants.length; i++) {
+            newArray[i] = allRestaurants[i];
+        }
+
+        allRestaurants = newArray;
+        // This code increases the length of the array by 1
+    }
+
+    void addRestaurant() {
+        arrayIncrease();
+
+        allRestaurants[allRestaurants.length - 1] = new Restaurant();
+    }
+
+    void printAllRestaurants() {
+
+        System.out.println("All Restaurants:");
+        for (int i = 0; i < allRestaurants.length; i++) {
+            Restaurant restaurant = allRestaurants[i];
+            System.out.println("------------------------------");
+            System.out.println("Restaurant " + (i + 1) + ":");
+            System.out.println("Restaurant Name : " + restaurant.name);
+            System.out.println("Address : " + restaurant.address);
+            System.out.println("Theme : " + restaurant.theme);
+            System.out.println("Average Stars : " + (restaurant.noOfStars / restaurant.noOfReviews));
+
+        }
+    }
+
+    void printRestaurantMenu(int i) {
+        i--;// Since Zero Indexing
+        if (allRestaurants[i].dishArray.length == 0) {
+            System.out.println("No dishes in the menu for this restaurant.");
+        } else {
+            System.out.println("Dishes in the Menu:");
+            for (int j = 0; j < allRestaurants[i].dishArray.length; j++) {
+                System.out.println("Dish " + (j + 1) + " : ");
+                allRestaurants[i].dishArray[j].dishPrint();
+                System.out.println("------------------------------");
+            }
+        }
+    }
+
+    void printRestaurantMenuArray(int restaurantChoice, Restaurant[] arrayRestaurants) {
+
+        if (arrayRestaurants[restaurantChoice].dishArray.length == 0) {
+            System.out.println("No dishes in the menu for this restaurant.");
+        } else {
+            System.out.println("Dishes in the Menu:");
+            for (int j = 0; j < arrayRestaurants[restaurantChoice].dishArray.length; j++) {
+                System.out.println("Dish " + (j + 1) + " : ");
+                arrayRestaurants[restaurantChoice].dishArray[j].dishPrint();
+                System.out.println("------------------------------");
+            }
+        }
+    }
+
+    void restaurantReview() {
+        if (allRestaurants.length == 0) {
+
+        } else {
+            int restaurantChoice = iv.getIntInput("Choose a Restaurant (1 to " + allRestaurants.length + ") : ");
+            int i = restaurantChoice - 1;
+            while (true) {
+
+                int starRating = iv.getIntInput("Enter Rating (0 to 5) : ");
+
+                if (starRating >= 0 && starRating <= 5) {
+
+                    Restaurant chosenRestaurant = allRestaurants[i];
+                    chosenRestaurant.noOfStars += starRating;
+                    chosenRestaurant.noOfReviews++;
+                    System.out.println("New Average Stars for " + chosenRestaurant.name + " : "
+                            + chosenRestaurant.noOfStars / chosenRestaurant.noOfReviews);
+
+                    break;
+                } else {
+                    System.out.println("Invalid Star Rating\nPlease enter a rating between 0 and 5.");
+                }
+            }
+        }
+    }
+
+    Restaurant[] filterArrayTheme(String filterTheme) {
+        Restaurant[] filter = new Restaurant[0];
+
+        for (Restaurant restaurant : allRestaurants) {
+            if (restaurant.theme.equals(filterTheme)) {
+
+                Restaurant[] newArray = new Restaurant[filter.length + 1];
+                for (int i = 0; i < filter.length; i++) {
+                    newArray[i] = filter[i];
+                }
+                filter = newArray;
+
+                filter[filter.length - 1] = restaurant;
+            }
+        }
+
+        return filter;
+    }
+
+    Restaurant[] filterArrayByRating(int minRating) {
+        Restaurant[] filter = new Restaurant[0];
+
+        for (Restaurant restaurant : allRestaurants) {
+            if (restaurant.noOfReviews > 0 && (restaurant.noOfStars / restaurant.noOfReviews) >= minRating) {
+
+                Restaurant[] newArray = new Restaurant[filter.length + 1];
+
+                for (int i = 0; i < filter.length; i++) {
+                    newArray[i] = filter[i];
+                }
+                newArray[filter.length] = restaurant;
+
+                filter = newArray;
+            }
+        }
+
+        return filter;
+    }
+
+    Restaurant[] searchArrayName(String searchName) {
+        Restaurant[] searchResult = new Restaurant[0];
+
+        for (Restaurant restaurant : allRestaurants) {
+            if (restaurant.name.equalsIgnoreCase(searchName)) {
+
+                Restaurant[] newArray = new Restaurant[searchResult.length + 1];
+                for (int i = 0; i < searchResult.length; i++) {
+                    newArray[i] = searchResult[i];
+                }
+                searchResult = newArray;
+
+                searchResult[searchResult.length - 1] = restaurant;
+            }
+        }
+        return searchResult;
+    }
+
+}
+
 class ProductManager {
     Scanner scanner = new Scanner(System.in);
     Login log = new Login();
@@ -477,13 +477,6 @@ class FoodCritic {
     completeRestaurantArray cra = new completeRestaurantArray();
     InputValidator iv = new InputValidator();
 
-    void reviewRestraunt() {
-        cra.printAllRestaurants();
-        // printing restraunt list
-        cra.restaurantReview();
-
-    }
-
     void criticMenu() {
         int choice;
 
@@ -521,6 +514,14 @@ class FoodCritic {
 
         scanner.close();
     }
+
+    void reviewRestraunt() {
+        cra.printAllRestaurants();
+        // printing restraunt list
+        cra.restaurantReview();
+
+    }
+
 }
 
 class Customer {
@@ -532,14 +533,6 @@ class Customer {
 
     static int balance = 5000;
     Dish[] previousOrders = new Dish[0];
-
-    void increasePreviousOrders() {
-        Dish[] newArray = new Dish[previousOrders.length + 1];
-        for (int i = 0; i < previousOrders.length; i++) {
-            newArray[i] = previousOrders[i];
-        }
-        previousOrders = newArray;
-    }
 
     void customerMenu() {
         int choice;
@@ -560,12 +553,14 @@ class Customer {
 
             switch (choice) {
                 case 1:
+                    System.out.println();
                     orderFood();
                     System.out.println();
                     System.out.println("------------------------------");
                     System.out.println();
                     break;
                 case 2:
+                    System.out.println();
                     balanceSubMenu();
                     System.out.println();
                     System.out.println("------------------------------");
@@ -575,20 +570,24 @@ class Customer {
                     System.out.println();
                     viewPreviousOrders();
                     System.out.println();
+                    System.out.println("------------------------------");
+                    System.out.println();
                     break;
                 case 4:
                     log.changeCustomerPassword();
                     break;
                 case 5:
                     System.out.println();
-                    System.out.println("Exiting the Customer Menu. Goodbye!");
+                    System.out.println("Exiting the Customer Menu!");
                     System.out.println();
                     System.out.println("------------------------------");
+                    System.out.println();
                     log.logInPage();
                     break;
                 default:
                     System.out.println();
                     System.out.println("Invalid choice. Please try again.");
+                    System.out.println();
                     System.out.println("------------------------------");
                     System.out.println();
             }
@@ -597,6 +596,7 @@ class Customer {
     }
 
     void orderFood() {
+
         if (cra.allRestaurants.length == 0) {
             System.out.println("Currently, no restaurants available.");
         } else {
@@ -606,21 +606,125 @@ class Customer {
             System.out.println("3. Search for a restaurant");
 
             int choice = iv.getIntInput("Enter your choice: ");
+            System.out.println();
 
             switch (choice) {
                 case 1:
+                    System.out.println();
                     orderAllRestaurants();
+                    System.out.println();
+                    System.out.println("------------------------------");
                     break;
                 case 2:
+                    System.out.println();
                     filterRestaurant();
+                    System.out.println();
+                    System.out.println("------------------------------");
                     break;
                 case 3:
+                    System.out.println();
                     searchName();
+                    System.out.println();
+                    System.out.println("------------------------------");
                     break;
                 default:
+                    System.out.println();
                     System.out.println("Invalid choice.");
+                    System.out.println();
+                    System.out.println("------------------------------");
                     break;
             }
+        }
+    }
+
+    void balanceSubMenu() {
+        int balanceChoice;
+        do {
+            System.out.println("------------------------------");
+            System.out.println();
+            System.out.println("Balance Submenu:");
+            System.out.println("1. View Balance");
+            System.out.println("2. Deposit Money");
+            System.out.println("3. Back to Main Menu");
+
+            balanceChoice = iv.getIntInput("Enter your choice: ");
+            System.out.println();
+
+            switch (balanceChoice) {
+                case 1:
+                    System.out.println();
+                    System.out.println("Balance : " + balance);
+                    System.out.println("------------------------------");
+                    System.out.println();
+                    break;
+                case 2:
+                    System.out.println();
+                    depositMoney();
+                    System.out.println("------------------------------");
+                    System.out.println();
+                    break;
+                case 3:
+                    System.out.println();
+                    System.out.println("------------------------------");
+                    System.out.println();
+                    return; // Back to the Customer menu
+                default:
+                    System.out.println();
+                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println("------------------------------");
+                    System.out.println();
+            }
+        } while (balanceChoice != 3);
+    }
+
+    void viewPreviousOrders() {
+        if (previousOrders.length == 0) {
+            System.out.println("No previous orders.");
+        } else {
+            System.out.println("Previous Orders:");
+            for (Dish dish : previousOrders) {
+                System.out.println("------------------------------");
+                System.out.println("Dish Name: " + dish.name);
+                System.out.println("Category: " + dish.category);
+                System.out.println("Cuisine: " + dish.cuisine);
+                System.out.println("Price: " + dish.price);
+
+            }
+        }
+    }
+
+    void orderAllRestaurants() {
+
+        // prints list of all restaurant
+        cra.printAllRestaurants();
+        System.out.println();
+        int restaurantChoice = iv.getIntInput("Choose a Restaurant (1 to " + cra.allRestaurants.length + ") : ");
+        int i = restaurantChoice - 1;
+        if (i >= 0 && i < cra.allRestaurants.length) {
+            cra.printRestaurantMenu(restaurantChoice);
+
+            System.out.println();
+            System.out.println("------------------------------");
+            System.out.println();
+
+            if (cra.allRestaurants[i].dishArray.length != 0) {
+                int dishChoice = iv
+                        .getIntInput("Choose a dish (1 to " + cra.allRestaurants[i].dishArray.length + ") : ");
+
+                if (dishChoice >= 1 && dishChoice <= cra.allRestaurants[i].dishArray.length) {
+
+                    Dish chosenDish = cra.allRestaurants[i].dishArray[dishChoice - 1];
+
+                    addToPreviousOrders(chosenDish);
+
+                } else {
+                    System.out.println("Invalid dish choice. Please try again.");
+                }
+            } else {
+                System.out.println("This Restaurant Has No Dishes");
+            }
+        } else {
+            System.out.println("Invalid restaurant choice. Please try again.");
         }
     }
 
@@ -687,6 +791,25 @@ class Customer {
         }
     }
 
+    void searchName() {
+        System.out.print("Enter the Name of the Restaurant :  ");
+        String restaurantName = scanner.nextLine();
+
+        Restaurant[] searchResults = cra.searchArrayName(restaurantName);
+        if (searchResults.length == 0) {
+            System.out.println("No restaurants found with the name: " + restaurantName);
+        } else {
+            orderFromArray(searchResults);
+        }
+
+    }
+
+    void depositMoney() {
+        balance += iv.getIntInput("Enter Deposit Amount : ");
+        System.out.println("New Balance : " + balance);
+
+    }
+
     void orderFromArray(Restaurant[] restaurants) {
         if (restaurants.length == 0) {
             System.out.println("No Such Restaurants is Currently available.");
@@ -732,7 +855,7 @@ class Customer {
     }
 
     void addToPreviousOrders(Dish dish) {
-        System.out.println("You are about to add the following dish to your previous orders:");
+        System.out.println("You are about to order dish :");
         System.out.println("Dish Name: " + dish.name);
         System.out.println("Price: " + dish.price);
 
@@ -742,13 +865,21 @@ class Customer {
                 balance -= dish.price;
                 increasePreviousOrders(); // Increase the size of the previousOrders array
                 previousOrders[previousOrders.length - 1] = dish; // Add the dish to the end of the array
-                System.out.println("Dish added to previous orders successfully.");
+                System.out.println("Dish ordered successfully.");
             } else {
                 System.out.println("Insufficient balance. Please deposit more money.");
             }
         } else {
             System.out.println("Operation cancelled.");
         }
+    }
+
+    void increasePreviousOrders() {
+        Dish[] newArray = new Dish[previousOrders.length + 1];
+        for (int i = 0; i < previousOrders.length; i++) {
+            newArray[i] = previousOrders[i];
+        }
+        previousOrders = newArray;
     }
 
     void filterByRating() {
@@ -792,120 +923,15 @@ class Customer {
         }
     }
 
-    void orderAllRestaurants() {
-
-        // prints list of all restaurant
-        cra.printAllRestaurants();
-        System.out.println();
-        int restaurantChoice = iv.getIntInput("Choose a Restaurant (1 to " + cra.allRestaurants.length + ") : ");
-        int i = restaurantChoice - 1;
-        if (i >= 0 && i < cra.allRestaurants.length) {
-            cra.printRestaurantMenu(restaurantChoice);
-
-            System.out.println();
-            System.out.println("------------------------------");
-            System.out.println();
-
-            if (cra.allRestaurants[i].dishArray.length != 0) {
-                int dishChoice = iv
-                        .getIntInput("Choose a dish (1 to " + cra.allRestaurants[i].dishArray.length + ") : ");
-
-                if (dishChoice >= 1 && dishChoice <= cra.allRestaurants[i].dishArray.length) {
-
-                    Dish chosenDish = cra.allRestaurants[i].dishArray[dishChoice - 1];
-
-                    addToPreviousOrders(chosenDish);
-
-                } else {
-                    System.out.println("Invalid dish choice. Please try again.");
-                }
-            } else {
-                System.out.println("This Restaurant Has No Dishes");
-            }
-        } else {
-            System.out.println("Invalid restaurant choice. Please try again.");
-        }
-    }
-
-    void searchName() {
-        System.out.print("Enter the Name of the Restaurant :  ");
-        String restaurantName = scanner.nextLine();
-
-        Restaurant[] searchResults = cra.searchArrayName(restaurantName);
-        if (searchResults.length == 0) {
-            System.out.println("No restaurants found with the name: " + restaurantName);
-        } else {
-            orderFromArray(searchResults);
-        }
-
-    }
-
-    void balanceSubMenu() {
-        int balanceChoice;
-        do {
-            System.out.println("------------------------------");
-            System.out.println();
-            System.out.println("Balance Submenu:");
-            System.out.println("1. View Balance");
-            System.out.println("2. Deposit Money");
-            System.out.println("3. Back to Main Menu");
-
-            balanceChoice = iv.getIntInput("Enter your choice: ");
-
-            switch (balanceChoice) {
-                case 1:
-                    System.out.println("Balance : " + balance);
-                    System.out.println("------------------------------");
-                    System.out.println();
-                    break;
-                case 2:
-                    depositMoney();
-                    System.out.println("------------------------------");
-                    System.out.println();
-                    break;
-                case 3:
-                    System.out.println("------------------------------");
-                    System.out.println();
-                    return; // Back to the Customer menu
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-                    System.out.println("------------------------------");
-                    System.out.println();
-            }
-        } while (balanceChoice != 3);
-    }
-
-    void depositMoney() {
-        balance += iv.getIntInput("Enter Deposit Amount : ");
-        System.out.println("New Balance : " + balance);
-
-    }
-
-    void viewPreviousOrders() {
-        if (previousOrders.length == 0) {
-            System.out.println("No previous orders.");
-        } else {
-            System.out.println("Previous Orders:");
-            for (Dish dish : previousOrders) {
-                System.out.println("------------------------------");
-                System.out.println("Dish Name: " + dish.name);
-                System.out.println("Category: " + dish.category);
-                System.out.println("Cuisine: " + dish.cuisine);
-                System.out.println("Price: " + dish.price);
-
-            }
-        }
-    }
-
 }
 
 class Login {
     Scanner scanner = new Scanner(System.in);
     InputValidator iv = new InputValidator();
 
-    String productManagerPassword = "Pass1";
-    String foodCriticPassword = "Pass2";
-    String customerPassword = "Pass3";
+    private static String productManagerPassword = "Pass1";
+    private static String foodCriticPassword = "Pass2";
+    private static String customerPassword = "Pass3";
 
     void logInPage() {
 
@@ -1014,7 +1040,6 @@ class Login {
             Customer CM = new Customer();
             System.out.println("Incorrect current password. Password not changed.");
             CM.customerMenu();
-
         }
     }
 
