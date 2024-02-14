@@ -143,9 +143,17 @@ class Restaurant {
         System.out.println();
 
         this.noOfStars = iv.getIntInput("Enter Number of Stars : ");
+        while (this.noOfStars < 0) {
+            System.out.println("Number of Stars cant be less than zero");
+            this.noOfStars = iv.getIntInput("Enter Number of Reviews : ");
+        }
         System.out.println();
 
         this.noOfReviews = iv.getIntInput("Enter Number of Reviews : ");
+        while (this.noOfReviews <= 0) {
+            System.out.println("Number of Reviews cant be zero");
+            this.noOfReviews = iv.getIntInput("Enter Number of Reviews : ");
+        }
         System.out.println();
         addToDishArray();
 
@@ -289,7 +297,10 @@ class completeRestaurantArray {
         } else {
             int restaurantChoice = iv.getIntInput("Choose a Restaurant (1 to " + allRestaurants.length + ") : ");
             int i = restaurantChoice - 1;
-            while (true) {
+            // zero indexing
+
+            if (i >= 0 && i < allRestaurants.length) {
+                // Check if choice is in range
 
                 int starRating = iv.getIntInput("Enter Rating (0 to 5) : ");
 
@@ -301,11 +312,13 @@ class completeRestaurantArray {
                     System.out.println("New Average Stars for " + chosenRestaurant.name + " : "
                             + chosenRestaurant.noOfStars / chosenRestaurant.noOfReviews);
 
-                    break;
                 } else {
                     System.out.println("Invalid Star Rating\nPlease enter a rating between 0 and 5.");
                 }
+            } else {
+                System.out.println("Invalid Restaurant Choice\nPlease choose a restaurant within the specified range.");
             }
+
         }
     }
 
@@ -1048,10 +1061,9 @@ class Login {
 class Hotel {
 
     public static void main(String[] args) {
-        // In this program there is no way to close the progrem, as in real life use if
+        // In this program there is no way to close the program, as in real life if
         // someone closes the program all data would be lost
         // Which is not Ideal
-        Scanner scanner = new Scanner(System.in);
         Login log = new Login();
 
         // logging in
