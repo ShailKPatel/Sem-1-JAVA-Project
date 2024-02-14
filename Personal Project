@@ -2,6 +2,7 @@ import java.util.*;
 import java.lang.*;
 
 class Solution {
+    Scanner sc = new Scanner(System.in);
 
     void simpleCalculator(double num1, char c, double num2) {
         double result = 0; // declaring 0 to avoid intialization eror
@@ -98,49 +99,6 @@ class Solution {
         System.out.println("---------------------------------------------");
     }
 
-    void Logarithmic(double value) {
-        if (value > 0) {
-            double result = Math.log(value);
-            System.out.println("Natural logarithm of " + value + " is: " + result);
-        } else {
-            System.out.println("Logarithm is undefined for non-positive values.");
-        }
-    }
-
-    void Trigonometric(int trigChoice, double angle) {
-        double result = 0;
-
-        switch (trigChoice) {
-            case 1:
-                result = Math.sin(Math.toRadians(angle));
-                System.out.println(result);
-                break;
-            case 2:
-                result = Math.cos(Math.toRadians(angle));
-                System.out.println(result);
-                break;
-            case 3:
-                result = Math.tan(Math.toRadians(angle));
-                System.out.println(result);
-                break;
-            case 4:
-                result = 1 / Math.sin(Math.toRadians(angle));
-                System.out.println(result);
-                break;
-            case 5:
-                result = 1 / Math.cos(Math.toRadians(angle));
-                System.out.println(result);
-                break;
-            case 6:
-                result = 1 / Math.tan(Math.toRadians(angle));
-                System.out.println(result);
-                break;
-            default:
-                System.out.println("Invalid choice. Please enter a valid trigonometric function.");
-        }
-
-    }
-
     long calculateFactorial(int n) {
         // using reccursion
         if (n == 0 || n == 1) {
@@ -174,23 +132,465 @@ class Solution {
         }
     }
 
+    void currencyConverter() {
+        // Here base Currency is INR so all currencies are being converted to and from
+        // INR
+        double amount;
+
+        System.out.println("Welcome to the Currency Converter!");
+        System.out.println("Please select the currency from which you want to convert (1-10) : ");
+        System.out.println("1. India (INR)");
+        System.out.println("2. USA (USD)");
+        System.out.println("3. Europe (Euro)");
+        System.out.println("4. United Kingdom (GBP)");
+        System.out.println("5. Japan (JPY)");
+        System.out.println("6. Australia (AUD)");
+        System.out.println("7. Canada (CAD)");
+        System.out.println("8. Switzerland (CHF)");
+        System.out.println("9. China (CNY)");
+        System.out.println("10. South Korea (KRW)");
+        System.out.print("Enter your choice: ");
+        int fromCurrency = sc.nextInt();
+
+        System.out.print("Enter the amount: ");
+
+        amount = sc.nextDouble();
+
+        switch (fromCurrency) {
+            case 1:
+                // No statment required as base currency is INR
+                break;
+            case 2:
+                amount *= 83.03;
+                break;
+            case 3:
+                amount *= 89.09;
+                break;
+            case 4:
+                amount *= 104.21;
+                break;
+            case 5:
+                amount *= 0.55;
+                break;
+            case 6:
+                amount *= 53.86;
+                break;
+            case 7:
+                amount *= 61.25;
+                break;
+            case 8:
+                amount *= 93.75;
+                break;
+            case 9:
+                amount *= 11.63;
+                break;
+            case 10:
+                amount *= 0.36;
+            default:
+                System.out.println("Invalid choice for currency.");
+                System.out.println("Settng India (INR) as default");
+                // No statment required as base currency is INR
+                return;
+        }
+
+        System.out.println("Please select the currency to which you want to convert (1-10) :");
+        System.out.println("1. India (INR)");
+        System.out.println("2. USA (USD)");
+        System.out.println("3. Europe (Euro)");
+        System.out.println("4. United Kingdom (GBP)");
+        System.out.println("5. Japan (JPY)");
+        System.out.println("6. Australia (AUD)");
+        System.out.println("7. Canada (CAD)");
+        System.out.println("8. Switzerland (CHF)");
+        System.out.println("9. China (CNY)");
+        System.out.println("10. South Korea (KRW)");
+        int toCurrency = sc.nextInt();
+
+        switch (toCurrency) {
+            case 1:
+                // No statment required as base currency is INR
+                System.out.println(amount + " INR");
+                break;
+            case 2:
+                amount /= 83.03;
+                System.out.println(amount + " USD");
+                break;
+            case 3:
+                amount /= 89.09;
+                System.out.println(amount + " Euro");
+                break;
+            case 4:
+                amount /= 104.21;
+                System.out.println(amount + " GBP");
+                break;
+            case 5:
+                amount /= 0.55;
+                System.out.println(amount + " JPY");
+                break;
+            case 6:
+                amount /= 53.86;
+                System.out.println(amount + " AUD");
+                break;
+            case 7:
+                amount /= 61.25;
+                System.out.println(amount + " CAD");
+                break;
+            case 8:
+                amount /= 93.75;
+                System.out.println(amount + " CHF");
+                break;
+            case 9:
+                amount /= 11.63;
+                System.out.println(amount + " CNY");
+                break;
+            case 10:
+                amount /= 0.36;
+                System.out.println(amount + " KRW");
+                break;
+            default:
+                System.out.println("Invalid choice for currency.");
+                System.out.println("Settng India (INR) as default");
+                // No statment required as base currency is INR
+                System.out.println(amount + " INR");
+                return;
+        }
+    }
+
+    void lengthConverter() {
+        double length;
+
+        // Here base unit is meter so all units are being converted to and from meter
+        System.out.println("Welcome to the Length Converter!");
+        System.out.println("Please select the unit from which you want to convert (1-8) : ");
+        System.out.println("1. Meter (m)");
+        System.out.println("2. Kilometer (km)");
+        System.out.println("3. Centimeter (cm)");
+        System.out.println("4. Millimeter (mm)");
+        System.out.println("5. Foot (ft)");
+        System.out.println("6. Inch (in)");
+        System.out.println("7. Yard (yd)");
+        System.out.println("8. Mile (mi)");
+        System.out.print("Enter your choice: ");
+        int fromUnit = sc.nextInt();
+
+        System.out.print("Enter the length: ");
+        length = sc.nextDouble();
+
+        switch (fromUnit) {
+            case 1:
+                // No conversion needed as base unit is meter
+                break;
+            case 2:
+                length *= 1000;
+                break;
+            case 3:
+                length /= 100;
+                break;
+            case 4:
+                length /= 1000;
+                break;
+            case 5:
+                length *= 0.3048;
+                break;
+            case 6:
+                length *= 0.0254;
+                break;
+            case 7:
+                length *= 0.9144;
+                break;
+            case 8:
+                length *= 1609.34;
+                break;
+            default:
+                System.out.println("Invalid choice for unit.");
+                System.out.println("Setting Meter (m) as default");
+                // No conversion needed as base unit is meter
+                break;
+        }
+
+        System.out.println("Please select the unit to which you want to convert (1-8) :");
+        System.out.println("1. Meter (m)");
+        System.out.println("2. Kilometer (km)");
+        System.out.println("3. Centimeter (cm)");
+        System.out.println("4. Millimeter (mm)");
+        System.out.println("5. Foot (ft)");
+        System.out.println("6. Inch (in)");
+        System.out.println("7. Yard (yd)");
+        System.out.println("8. Mile (mi)");
+        int toUnit = sc.nextInt();
+
+        switch (toUnit) {
+            case 1:
+                // No conversion needed as base unit is meter
+                System.out.println(length + " m");
+                break;
+            case 2:
+
+                length /= 1000;
+                System.out.println(length + " km");
+                break;
+            case 3:
+
+                length *= 100;
+                System.out.println(length + " cm");
+                break;
+            case 4:
+                length *= 1000;
+                System.out.println(length + " mm");
+                break;
+            case 5:
+                length /= 0.3048;
+                System.out.println(length + " ft");
+                break;
+            case 6:
+                length /= 0.0254;
+                System.out.println(length + " in");
+                break;
+            case 7:
+                length /= 0.9144;
+                System.out.println(length + " yd");
+                break;
+            case 8:
+                length /= 1609.34;
+                System.out.println(length + " mi");
+                break;
+            default:
+                System.out.println("Invalid choice for unit.");
+                System.out.println("Setting Meter (m) as default");
+                System.out.println(length + " m");
+                break;
+        }
+
+    }
+
+    void areaConverter() {
+        double area;
+
+        // Here base unit is square meter so all units are being converted to and from
+        // square meter
+        System.out.println("Welcome to the Area Converter!");
+        System.out.println("Please select the unit from which you want to convert (1-6) : ");
+        System.out.println("1. Square Meter (m) sqr");
+        System.out.println("2. Square Kilometer (km) sqr");
+        System.out.println("3. Square Centimeter (cm) sqr");
+        System.out.println("4. Square Millimeter (mm) sqr");
+        System.out.println("5. Square Foot (ft) sqr");
+        System.out.println("6. Acre (acre)");
+        System.out.print("Enter your choice: ");
+        int fromUnit = sc.nextInt();
+
+        System.out.print("Enter the area: ");
+        area = sc.nextDouble();
+
+        switch (fromUnit) {
+            case 1:
+                // No conversion needed as base unit is square meter
+                break;
+            case 2:
+                area *= 1000000;
+                break;
+            case 3:
+                area /= 10000;
+                break;
+            case 4:
+                area /= 1000000;
+                break;
+            case 5:
+                area *= 0.092903;
+                break;
+            case 6:
+                area *= 4046.86;
+                break;
+            default:
+                System.out.println("Invalid choice for unit.");
+                System.out.println("Setting Square Meter (m) sqr as default");
+                // No conversion needed as base unit is square meter
+                break;
+        }
+
+        System.out.println("Please select the unit to which you want to convert (1-6) :");
+        System.out.println("1. Square Meter (m) sqr");
+        System.out.println("2. Square Kilometer (km) sqr");
+        System.out.println("3. Square Centimeter (cm) sqr");
+        System.out.println("4. Square Millimeter (mm) sqr");
+        System.out.println("5. Square Foot (ft) sqr");
+        System.out.println("6. Acre (acre)");
+        int toUnit = sc.nextInt();
+
+        switch (toUnit) {
+            case 1:
+                // No conversion needed as base unit is square meter
+                System.out.println(area + " m sqr");
+                break;
+            case 2:
+                area /= 1000000;
+                System.out.println(area + " km sqr");
+                break;
+            case 3:
+                area *= 10000;
+                System.out.println(area + " cm sqr");
+                break;
+            case 4:
+                area *= 1000000;
+                System.out.println(area + " mm sqr");
+                break;
+            case 5:
+                area /= 0.092903;
+                System.out.println(area + " ft sqr");
+                break;
+            case 6:
+                area /= 4046.86;
+                System.out.println(area + " acre");
+                break;
+            default:
+                System.out.println("Invalid choice for unit.");
+                System.out.println("Setting Square Meter (m) sqr as default");
+                // No conversion needed as base unit is square meter
+                System.out.println(area + " m sqr");
+                break;
+        }
+    }
+
+    void temperatureConverter() {
+        // Here base unit is Celsius so all units are being converted to and from
+        // Celsius
+        double temperature;
+
+        System.out.println("Welcome to the Temperature Converter!");
+        System.out.println("Please select the unit from which you want to convert (1-3) : ");
+        System.out.println("1. Celsius (C)");
+        System.out.println("2. Fahrenheit (F)");
+        System.out.println("3. Kelvin (K)");
+        System.out.print("Enter your choice: ");
+        int fromUnit = sc.nextInt();
+
+        System.out.print("Enter the temperature: ");
+        temperature = sc.nextDouble();
+
+        switch (fromUnit) {
+            case 1:
+                // No conversion needed as base unit is celcius
+
+                break;
+            case 2:
+                temperature = (temperature - 32) * 5 / 9;
+                break;
+            case 3:
+                temperature -= 273.15;
+                break;
+            default:
+                System.out.println("Invalid choice for unit.");
+                System.out.println("Setting Celsius (C) as default");
+                fromUnit = 1;
+                break;
+        }
+
+        System.out.println("Please select the unit to which you want to convert (1-3) :");
+        System.out.println("1. Celsius (C)");
+        System.out.println("2. Fahrenheit (F)");
+        System.out.println("3. Kelvin (K)");
+        int toUnit = sc.nextInt();
+
+        switch (toUnit) {
+            case 1:
+                // No conversion needed as base unit is celcius
+
+                System.out.println(temperature + " C");
+                break;
+            case 2:
+                temperature = temperature * 9 / 5 + 32;
+                System.out.println(temperature + " F");
+                break;
+            case 3:
+                temperature += 273.15;
+                System.out.println(temperature + " K");
+                break;
+            default:
+                System.out.println("Invalid choice for unit.");
+                System.out.println("Setting Celsius (C) as default");
+                // No conversion needed as base unit is celcius
+                System.out.println(temperature + " C");
+                break;
+        }
+    }
+
+    void massConverter() {
+        double mass;
+
+        // Here base unit is kilograms so all units are being converted to and from
+        // kilograms
+        System.out.println("Welcome to the Mass Converter!");
+        System.out.println("Please select the unit from which you want to convert (1-3) : ");
+        System.out.println("1. Kilogram (kg)");
+        System.out.println("2. Gram (g)");
+        System.out.println("3. Pound (lb)");
+        System.out.print("Enter your choice: ");
+        int fromUnit = sc.nextInt();
+
+        System.out.print("Enter the mass: ");
+        mass = sc.nextDouble();
+
+        switch (fromUnit) {
+            case 1:
+                // No conversion needed as base unit is kilograms
+                break;
+            case 2:
+                mass /= 1000;
+                break;
+            case 3:
+                mass *= 0.453592;
+                break;
+            default:
+                System.out.println("Invalid choice for unit.");
+                System.out.println("Setting Kilogram (kg) as default");
+                fromUnit = 1;
+                break;
+        }
+
+        System.out.println("Please select the unit to which you want to convert (1-3) :");
+        System.out.println("1. Kilogram (kg)");
+        System.out.println("2. Gram (g)");
+        System.out.println("3. Pound (lb)");
+        int toUnit = sc.nextInt();
+
+        switch (toUnit) {
+            case 1:
+                // No conversion needed as base unit is kilograms
+                System.out.println(mass + " kg");
+                break;
+            case 2:
+                mass *= 1000;
+                System.out.println(mass + " g");
+                break;
+            case 3:
+                mass /= 0.453592;
+                System.out.println(mass + " lb");
+                break;
+            default:
+                System.out.println("Invalid choice for unit.");
+                System.out.println("Setting Kilogram (kg) as default");
+                System.out.println(mass + " kg");
+                break;
+        }
+
+    }
 }
 
 class PolynomialS {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Solution solv = new Solution();
+        Solution sol = new Solution();
 
         while (true) {
             System.out.println("---------------------------------------------");
             System.out.println("                MAIN MENU");
             System.out.println("---------------------------------------------");
-            System.out.println("Press 1 to enter a Simple Calculator");
-            System.out.println("Press 2 to enter a quadratic equation (degree = 2)");
-            System.out.println("Press 3 to enter a cubic equation (degree = 3)");
-            System.out.println("Press 4 to enter a quartic equation (degree = 4)");
-            System.out.println("Press 5 for Logarithm");
-            System.out.println("Press 6 for Trigonometric Calculations");
+            System.out.println("Press 1 to Enter Simple Calculator");
+            System.out.println("Press 2 to Solve Quadratic Equation (degree = 2)");
+            System.out.println("Press 3 to Solve Cubic Equation (degree = 3)");
+            System.out.println("Press 4 to Solve Quartic equation (degree = 4)");
+            System.out.println("Press 5 for Currency Conversion");
+            System.out.println("Press 6 for Unit Conversion");
             System.out.println("Press 7 for Factorial");
             System.out.println("Press 8 for Power Function");
             System.out.println("Press 9 for Arithmetic Progression (Sum)");
@@ -226,7 +626,7 @@ class PolynomialS {
                     System.out.print("Enter num2 : ");
                     double num2 = sc.nextDouble();
 
-                    solv.simpleCalculator(num1, operator, num2);
+                    sol.simpleCalculator(num1, operator, num2);
 
                     break;
 
@@ -239,7 +639,7 @@ class PolynomialS {
                     System.out.print("c = ");
                     int c2 = sc.nextInt();
 
-                    solv.poly(a2, b2, c2);
+                    sol.poly(a2, b2, c2);
 
                     break;
 
@@ -255,7 +655,7 @@ class PolynomialS {
                     System.out.print("d = ");
                     int d3 = sc.nextInt();
 
-                    solv.poly(a3, b3, c3, d3);
+                    sol.poly(a3, b3, c3, d3);
 
                     break;
 
@@ -273,41 +673,54 @@ class PolynomialS {
                     System.out.print("e = ");
                     int e4 = sc.nextInt();
 
-                    solv.poly(a4, b4, c4, d4, e4);
+                    sol.poly(a4, b4, c4, d4, e4);
 
                     break;
 
                 case 5:
 
-                    System.out.print("Enter a value: ");
-                    double inputValue = sc.nextDouble();
-                    solv.Logarithmic(inputValue);
+                    sol.currencyConverter();
 
                     break;
 
                 case 6:
 
-                    System.out.println("Trigonometric Calculations Menu:");
-                    System.out.println("1. Sine");
-                    System.out.println("2. Cosine");
-                    System.out.println("3. Tangent");
-                    System.out.println("4. Cosecant");
-                    System.out.println("5. Secant");
-                    System.out.println("6. Cotangent");
+                    System.out.println("Welcome to the Unit Converter!");
+                    System.out.println("Please select the type of conversion:");
+                    System.out.println("1. Length");
+                    System.out.println("2. Area");
+                    System.out.println("3. Temperature");
+                    System.out.println("4. Mass");
+                    System.out.print("Enter your choice: ");
+                    int choice = sc.nextInt();
 
-                    System.out.print("Enter your choice (1-6): ");
-                    int trigChoice = sc.nextInt();
+                    double inputValue;
 
-                    System.out.print("Enter the angle in degrees: ");
-                    double angle = sc.nextDouble();
-                    solv.Trigonometric(trigChoice, angle);
+                    switch (choice) {
+                        case 1:
+                            sol.lengthConverter();
+                            break;
+                        case 2:
+                            sol.areaConverter();
+                            break;
+                        case 3:
+                            sol.temperatureConverter();
+                            break;
+                        case 4:
+                            sol.massConverter();
+                            break;
+                        default:
+                            System.out.println("Invalid choice for conversion type.");
+                            return;
+                    }
+
                     break;
 
                 case 7:
 
                     System.out.print("Enter a non-negative integer: ");
                     int input = sc.nextInt();
-                    solv.Factorial(input);
+                    sol.Factorial(input);
                     break;
 
                 case 8:
@@ -330,7 +743,7 @@ class PolynomialS {
 
                     System.out.print("Enter the number of terms (n): ");
                     int numberOfTerms = sc.nextInt();
-                    solv.APSum(firstTerm, commonDifference, numberOfTerms);
+                    sol.APSum(firstTerm, commonDifference, numberOfTerms);
 
                     break;
 
@@ -345,7 +758,7 @@ class PolynomialS {
                     System.out.print("Enter the number of terms (n): ");
                     int numberOfTermsGP = sc.nextInt();
 
-                    solv.GP(firstTermGP, commonRatioGP, numberOfTermsGP);
+                    sol.GP(firstTermGP, commonRatioGP, numberOfTermsGP);
 
                     break;
 
