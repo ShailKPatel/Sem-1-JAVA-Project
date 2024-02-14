@@ -293,7 +293,7 @@ class completeRestaurantArray {
 
     void restaurantReview() {
         if (allRestaurants.length == 0) {
-            System.out.println("No dishes in the menu for this restaurant.");
+            System.out.println("No restaurant available.");
         } else {
             int restaurantChoice = iv.getIntInput("Choose a Restaurant (1 to " + allRestaurants.length + ") : ");
             int i = restaurantChoice - 1;
