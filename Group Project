@@ -1058,7 +1058,7 @@ class Login {
 
 }
 
-class Hotel {
+class FoodDeliverySystem {
 
     public static void main(String[] args) {
         // In this program there is no way to close the program, as in real life if
