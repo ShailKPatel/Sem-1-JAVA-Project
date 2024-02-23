@@ -37,10 +37,10 @@ class Dish {
         this.name = scanner.nextLine();
         System.out.println();
 
-        dishCategory();
+        dishCategory(); // LOC : 54
         System.out.println();
 
-        dishCuisine();
+        dishCuisine(); // LOC : 81
         System.out.println();
 
         this.price = iv.getIntInput("Enter Price : ");
@@ -69,7 +69,7 @@ class Dish {
                 this.category = "Dessert";
                 break;
             case 5:
-                this.category = "Miscellaneous";
+                this.category = "Miscellaneous"; // DEFAULT CATEGORY
                 break;
             default:
                 System.out.println("Invalid Choice\nSetting Category To Miscellaneous");
@@ -83,7 +83,7 @@ class Dish {
                 "1. Indian\n2. Italian\n3. Gujarati\n4. Mexican\n5. South Indian\n6. Continental\n7. Punjabi\nChoose Cuisine : ");
         switch (choice) {
             case 1:
-                this.cuisine = "Indian";
+                this.cuisine = "Indian"; // DEFAULT CUISINE
                 break;
             case 2:
                 this.cuisine = "Italian";
@@ -139,7 +139,7 @@ class Restaurant {
         this.address = scanner.nextLine();
         System.out.println();
 
-        restaurantTheme();
+        restaurantTheme(); // LOC : 162
         System.out.println();
 
         this.noOfStars = iv.getIntInput("Enter Number of Stars : ");
@@ -155,7 +155,7 @@ class Restaurant {
             this.noOfReviews = iv.getIntInput("Enter Number of Reviews : ");
         }
         System.out.println();
-        addToDishArray();
+        addToDishArray(); // LOC : 195
 
     }
 
@@ -204,7 +204,7 @@ class Restaurant {
             System.out.println("Enter details for Dish " + (i + 1) + " : ");
             System.out.println("------------------------------");
 
-            dishArray[i] = new Dish();
+            dishArray[i] = new Dish(); // LOC : 35
         }
     }
 
@@ -243,9 +243,9 @@ class completeRestaurantArray {
     }
 
     void addRestaurant() {
-        arrayIncrease();
+        arrayIncrease(); // LOC : 235
 
-        allRestaurants[allRestaurants.length - 1] = new Restaurant();
+        allRestaurants[allRestaurants.length - 1] = new Restaurant(); // LOC : 132
     }
 
     void printAllRestaurants() {
@@ -404,21 +404,21 @@ class ProductManager {
 
             switch (choice) {
                 case 1:
-                    cra.addRestaurant();
+                    cra.addRestaurant(); // LOC : 245
                     System.out.println();
                     break;
                 case 2:
-                    addDishToRestaurant();
+                    addDishToRestaurant(); // LOC : 432
                     break;
                 case 3:
-                    deleteRestaurant();
+                    deleteRestaurant(); // LOC : 453
                     break;
                 case 4:
-                    log.changeProductManagerPassword();
+                    log.changeProductManagerPassword(); // LOC : 1005
                     break;
                 case 5:
                     System.out.println("Exiting the Manager Menu. Goodbye!");
-                    log.logInPage();
+                    log.logInPage(); // LOC : 949
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -430,7 +430,7 @@ class ProductManager {
     }
 
     void addDishToRestaurant() {
-        cra.printAllRestaurants();
+        cra.printAllRestaurants(); // LOC : 251
 
         int restaurantChoice = iv.getIntInput("Enter the number of the restaurant you want to add a dish to: ");
         restaurantChoice--;
@@ -443,7 +443,7 @@ class ProductManager {
             }
             selectedRestaurant.dishArray = updatedDishArray;
 
-            selectedRestaurant.dishArray[selectedRestaurant.dishArray.length - 1] = new Dish();
+            selectedRestaurant.dishArray[selectedRestaurant.dishArray.length - 1] = new Dish(); // LOC : 35
             System.out.println("Dish added successfully to the restaurant: " + selectedRestaurant.name);
         } else {
             System.out.println("Invalid restaurant choice. Please try again.");
@@ -451,7 +451,7 @@ class ProductManager {
     }
 
     void deleteRestaurant() {
-        cra.printAllRestaurants();
+        cra.printAllRestaurants(); // LOC : 251
 
         int restaurantChoice = iv.getIntInput("Enter the number of the restaurant you want to delete: ");
         restaurantChoice--;
